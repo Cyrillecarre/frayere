@@ -1,0 +1,87 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Rajdhani;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  
+  .bar {
+    width: 30px;
+    height: 3px;
+    background-color: #D02332;
+    margin: 6px 0;
+  }
+  
+
+.header {
+    display: flex;
+    height: 10rem;
+    width: 100%;
+    text-align: center;
+    background-color: #d9777f89;
+    border-bottom: 2px solid #D02332;
+}
+
+.headerNav {
+    display: grid;
+    grid-template-rows: 30% 70%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.header2 {
+    display: flex;
+    flex-direction: row;   
+    width: 100%;
+    justify-content: flex-end;
+    gap: 2.2rem;
+    text-align: center;
+    align-items: center;
+    background-color: white;
+    font-size: 1rem;
+    height: 100%;
+}
+
+.header2 a {
+    color: #D02332 ;
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.navListe {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    gap: 20px;
+    cursor: pointer;
+}
+
+.logo {
+    width: 26%;
+    padding: 0%;
+    margin: 0%;
+}

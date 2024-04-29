@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('styles/header.css') }}">
+    <script src="https://kit.fontawesome.com/6db39e2efc.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+{% block body %}
+<body>
+    <header class="header">
+        <img class="logo" src="{{ asset('images/logoFrayere.jpg') }}" alt="logo"></a>
+        <div class="headerNav">
+            <div class="header2">
+                <a href="{{ path('app_login') }}"><i class="fa-solid fa-user-secret"></i> Connexion</a>
+            </div>
+            <div class="burger-menu" id="burger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <nav class="nav">
+                <ul class="navListe">
+                    <li class="navList"><a href="{{ path('app_home') }}">Accueil</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <script src="{{ asset('scripts/header.js') }}"></script>
+    {% endblock %}
