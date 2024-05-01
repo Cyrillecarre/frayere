@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit PosteOne{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/poste.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1>Edit PosteOne</h1>
+
+    {{ include('poste_one/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_poste_one_index') }}">back to list</a>
+
+    {{ include('poste_one/_delete_form.html.twig') }}
+{% endblock %}

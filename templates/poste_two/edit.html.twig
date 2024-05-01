@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit PosteTwo{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/poste.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1 class="titre">Modifier Poste 2</h1>
+
+    {{ include('poste_two/_form.html.twig', {'button_label': 'Update'}) }}
+    <a href="{{ path('app_approve_reservation', {'id': poste_two.id}) }}" class="btnAction">Approuver</a>
+
+    <a href="{{ path('app_poste_two_index') }}" class="btnAction">Retour</a>
+
+    {{ include('poste_two/_delete_form.html.twig') }}
+{% endblock %}

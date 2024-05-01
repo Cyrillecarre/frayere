@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/admin.css') }}">
+{% endblock %}
+
+{% block body %}
+<h1 class="titre">Bonjour Johannes</h1>
+    <ul class="btnPoste">
+        <a href="{{ path('app_poste_one_index') }}">Poste 1</a>
+        <a href="{{ path('app_poste_two_index') }}">Poste 2</a>
+        <a href="{{ path('app_poste_three_index') }}">Poste 3</a>
+        <a href="{{ path('app_poste_four_index') }}">Poste 4</a>
+    </ul>
+
+<h3 class="titreReservation">Voici le récapitulatif des réservations</h3>
+    <div>
+        <h4>Réservations du Poste 1</h4>
+          <ul>
+            {% for poste_one in poste_ones %}
+                <li>{{ poste_one.id }} - 
+                    {{ poste_one.title }} - 
+                    {{ poste_one.start ? poste_one.start|date('d-m-Y') : '' }} / 
+                    {{ poste_one.end ? poste_one.end|date('d-m-Y') : '' }} - 
+                    {{ poste_one.isApprouved ? 'Yes' : 'No' }}
+                    <a href="{{ path('app_poste_one_edit', {'id': poste_one.id}) }}">Modifier</a>
+                </li>
+            {% else %}
+                <li>no records found</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="poste-two-reservations">
+        <h4>Réservations de Poste 2</h4>
+        <ul>
+            {% for poste_two in poste_twos %}
+                <li>{{ poste_two.id }} - 
+                    {{ poste_two.title }} - 
+                    {{ poste_two.start ? poste_two.start|date('d-m-Y') : '' }} / 
+                    {{ poste_two.end ? poste_two.end|date('d-m-Y') : '' }} - 
+                    {{ poste_two.isApprouved ? 'Yes' : 'No' }}
+                    <a href="{{ path('app_poste_two_edit', {'id': poste_two.id}) }}">Modifier</a>
+                </li>
+            {% else %}
+                <li>no records found</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <h4>Réservations du Poste 3</h4>
+          <ul>
+            {% for poste_three in poste_threes %}
+                <li>{{ poste_three.id }} - 
+                    {{ poste_three.title }} - 
+                    {{ poste_three.start ? poste_one.start|date('d-m-Y') : '' }} / 
+                    {{ poste_three.end ? poste_one.end|date('d-m-Y') : '' }} - 
+                    {{ poste_three.isApprouved ? 'Yes' : 'No' }}
+                    <a href="{{ path('app_poste_three_edit', {'id': poste_three.id}) }}">Modifier</a>
+                </li>
+            {% else %}
+                <li>no records found</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <h4>Réservations du Poste 4</h4>
+          <ul>
+            {% for poste_four in poste_fours %}
+                <li>{{ poste_four.id }} - 
+                    {{ poste_four.title }} - 
+                    {{ poste_four.start ? poste_one.start|date('d-m-Y') : '' }} / 
+                    {{ poste_four.end ? poste_one.end|date('d-m-Y') : '' }} - 
+                    {{ poste_four.isApprouved ? 'Yes' : 'No' }}
+                    <a href="{{ path('app_poste_four_edit', {'id': poste_four.id}) }}">Modifier</a>
+                </li>
+            {% else %}
+                <li>no records found</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+

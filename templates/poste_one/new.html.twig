@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New PosteOne{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/poste.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1>Create new PosteOne</h1>
+
+    {{ include('poste_one/_form.html.twig') }}
+
+    <a href="{{ path('app_poste_one_index') }}">back to list</a>
+{% endblock %}

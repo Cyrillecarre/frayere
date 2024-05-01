@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Poste 1{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/poste.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1 class="titre">Poste 1</h1>
+
+    <table class="table">
+        <thead>
+            <tr class="tableIndex">
+                <th>Arrivée</th>
+                <th>Départ</th>
+                <th>Validé</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for poste_one in poste_ones %}
+            <tr class="tableValeur">
+                <td>{{ poste_one.start ? poste_one.start|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ poste_one.end ? poste_one.end|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ poste_one.isApprouved ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_poste_one_show', {'id': poste_one.id}) }}" class="btnAction">Voir</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_poste_one_new') }}" class="btnAction">Ajouter une réservation</a>
+    <a href="{{ path('app_admin') }}" class="btnAction">Retour</a>
+{% endblock %}

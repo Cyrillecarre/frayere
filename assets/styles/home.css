@@ -1,0 +1,7 @@
+.calendar {
+    display: flex;
+    padding-top: 5rem;
+    width: 60%;
+    height: auto;
+    margin: 0 auto;
+}

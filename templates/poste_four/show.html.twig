@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PosteFour{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/poste.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1 class="titre">Poste 4</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Start</th>
+                <td>{{ poste_four.start ? poste_four.start|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>End</th>
+                <td>{{ poste_four.end ? poste_four.end|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>IsApprouved</th>
+                <td>{{ poste_four.isApprouved ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_poste_four_index') }}" class="btnAction">Retour</a>
+
+    <a href="{{ path('app_poste_four_edit', {'id': poste_four.id}) }}" class="btnAction">Modifier</a>
+
+    <a href="{{ path('app_approve_reservation_four', {'id': poste_Four.id}) }}" class="btnAction">Approuver</a>
+
+    {{ include('poste_four/_delete_form.html.twig') }}
+{% endblock %}

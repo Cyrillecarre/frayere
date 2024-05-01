@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New PosteTwo{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/poste.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1 class="titre">Modifier Poste 2</h1>
+
+    {{ include('poste_two/_form.html.twig') }}
+
+    <a href="{{ path('app_poste_two_index') }}" class="btnAction">Retour</a>
+{% endblock %}

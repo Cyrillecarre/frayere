@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PosteFour index{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/poste.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1 class="titre">Poste 4</h1>
+
+    <table class="table">
+        <thead>
+            <tr class="tableIndex">
+                <th>Arrivée</th>
+                <th>Départ</th>
+                <th>Validé</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for poste_four in poste_fours %}
+            <tr class="tableValeur">
+                <td>{{ poste_four.start ? poste_four.start|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ poste_four.end ? poste_four.end|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ poste_four.isApprouved ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_poste_four_show', {'id': poste_four.id}) }}" class="btnAction">Voir</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_poste_four_new') }}" class="btnAction">Ajouter une nouvelle réservation</a>
+    <a href="{{ path('app_admin') }}" class="btnAction">Retour</a>
+{% endblock %}

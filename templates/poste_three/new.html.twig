@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New PosteThree{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/poste.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1 class="titre">Nouvelle réservation poste 3</h1>
+
+    {{ include('poste_three/_form.html.twig') }}
+
+    <a href="{{ path('app_poste_three_index') }}" class="btnAction">Retour</a>
+{% endblock %}
