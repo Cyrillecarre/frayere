@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PosteController!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/navPoste.css') }}">
+{% endblock %}
+{% block javascripts %}
+    
+{% endblock %}
+
+{% block body %}
+<hr class="hr">
+<h1 class="titre" id="Postes">Postes de pêche</h1>
+        <div class="poste">
+            <h2>Poste 1</h2>
+                <img src="{{ asset('images/poste1.jpg') }}" alt="poste" class="poste">
+            <h2>Poste 2</h2>
+                <img src="{{ asset('images/poste2.jpg') }}" alt="poste" class="poste">
+            <h2>Poste 3</h2>
+                <img src="{{ asset('images/poste3.jpg') }}" alt="poste" class="poste">
+            <h2>Poste 4</h2>
+                <img src="{{ asset('images/poste4.jpg') }}" alt="poste" class="poste">
+        </div>
+    <hr class="hr">
+{% endblock %}

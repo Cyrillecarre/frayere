@@ -5,7 +5,7 @@
 .titre {
     display: flex;
     justify-content: center;
-    font-size: 4.5rem;
+    font-size: 4rem;
     font-weight: bold;
     padding-bottom: 2rem;
     margin: 0 auto;
@@ -55,4 +55,92 @@
     width: 9rem;
     height: 3rem;
     margin: 1rem auto 1rem auto;
+    grid-column: span 2;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    margin: 0 auto;
+    width: 70%;
+    background-color: rosybrown;
+}
+
+.formTitle{
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    padding-bottom: 2rem;
+    margin: 0 auto;
+}
+
+.formStart {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 2rem;
+    gap: 1rem;
+    margin: 0 auto;
+}
+
+#poste_one_start_time {
+    display: none;
+}
+
+#poste_one_end_time {
+    display: none;
+}
+
+.formEnd {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 2rem;
+    gap: 1rem;
+    margin: 0 auto;
+}
+
+.formEmail {
+    display: flex;
+    justify-content: center;
+    width: 17rem;
+    height: 2rem;
+    gap: 1rem;
+    margin: 0 auto;
+}
+
+.formPhone {
+    display: flex;
+    justify-content: center;
+    width: 17rem;
+    height: 2rem;
+    gap: 1rem;
+    margin: 0 auto;
+}
+
+.hr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 60%;
+    height: 0.2rem;
+    background-color:rgb(5, 123, 84);
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+.dateA {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 60%;
+    height: 2rem;
+    background-color: rgb(216, 216, 214);
+    gap: 1rem;
 }

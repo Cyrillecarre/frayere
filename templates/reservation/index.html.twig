@@ -41,7 +41,16 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
+    <h1 class="title">Réservation</h1>
+      <ul>
+        <li><a href="{{ path('app_poste_one_new') }}">Réservation Poste 1</a></li>
+        <li><a href="{{ path('app_poste_two_new') }}">Réservation Poste 2</a></li>
+        <li><a href="{{ path('app_poste_three_new') }}">Réservation Poste 3</a></li>
+        <li><a href="{{ path('app_poste_four_new') }}">Réservation Poste 4</a></li>
+      </ul>
+    <hr class="hr">
     <div class="calendar" id='calendar'>
     </div>
+    <hr class="hr">
 
 {% endblock %}

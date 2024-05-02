@@ -10,5 +10,38 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
+    <hr class="hr">
+    <h1 class="titre">Quelques infos</h1>
+    <div class="iconDescription">
+        <div class="icon">
+            <i class="fa-solid fa-fish-fins icon1" style="color:#FFA500;"></i>
+            <p>Carpes, Amours Blanc, Koï</p>
+        </div>
+        <div class="icon">
+            <i class="fa-regular fa-map icon1" style="color:blue"></i>
+            <p>Etang de 4 hectares</p>
+        </div>
+        <div class="icon">
+            <i class="fa-solid fa-square-rss icon1" style="color:red"></i>
+            <p>Couverture réseau</p>
+        </div>
+    </div>
+    <div class="iconDescription">
+        <div class="icon">
+            <i class="fa-solid fa-shoe-prints icon1" style="color:#F5F5DC"></i>
+            <p>Site cloturé</p>
+        </div>
+        <div class="icon">
+            <i class="fa-solid fa-toilet-paper icon1" style="color:#8B4513"></i>
+            <p>Sanitaires</p>
+        </div>
+        <div class="icon">
+            <i class="fa-solid fa-tree icon1" style="color:green"></i>
+            <p>Environnement sauvage</p>
+        </div>
+    </div>
+    <hr class="hr">
+        <img src="{{ asset('images/environnement.jpg') }}" alt="etang" class="etang">
+    <hr class="hr">
 
 {% endblock %}

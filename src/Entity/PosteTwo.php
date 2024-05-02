@@ -26,6 +26,13 @@ class PosteTwo
     #[ORM\Column]
     private ?bool $isApprouved = false;
 
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $phoneNumber = null;
+
+
     #[ORM\Column(length: 7)]
     private ?string $background_color = null;
 
@@ -91,6 +98,30 @@ class PosteTwo
     public function setBackgroundColor(string $background_color): static
     {
         $this->background_color = $background_color;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(?string $phoneNumber): static
+    {
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }

@@ -1,0 +1,38 @@
+.footer {
+    display: flex;
+    flex-direction: raw;
+    background-color: black;
+    height: 25rem;
+}
+
+.footer img {
+    margin-left: 7rem;
+    width: 25%;
+    height: auto;
+}
+
+.footerDescription {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    color: white;
+}
+
+.facebook {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-right: 6rem;
+}
+
+.facebook i {
+    font-size: 5rem;
+    color: #3b5998;
+    height: auto;
+    margin: 0 auto;
+}

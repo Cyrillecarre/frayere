@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TarifController!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/tarif.css') }}">
+{% endblock %}
+{% block javascripts %}
+     
+{% endblock %}
+
+{% block body %}
+<hr class="hr">
+        <h1 class="titre">Tarifs</h1>
+            <img src="{{ asset('images/tarif.jpg') }}" alt="tarifs" class="tarifs">
+    <hr class="hr">
+
+        <h1 class="titre">Réglement de pêche</h1>
+            <div class="reglement">
+                <img src="{{ asset('images/reglement_carpe.jpg') }}" alt="reglement" class="reglement">
+                <img src="{{ asset('images/reglement_carpe2.jpg') }}" alt="reglement" class="reglement">
+            </div>
+    <hr class="hr">
+
+        <h1 class="titre">Réglement intérieur</h1>
+            <div class="reglement">
+                <hr class="hr">
+                <img src="{{ asset('images/reglement_interieur.jpg') }}" alt="reglement" class="reglement">
+                <img src="{{ asset('images/reglement_interieur2.jpg') }}" alt="reglement" class="reglement">
+            </div>
+    <hr class="hr">
+{% endblock %}

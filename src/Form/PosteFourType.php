@@ -8,6 +8,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Email;
 
 class PosteFourType extends AbstractType
 {
@@ -31,6 +34,23 @@ class PosteFourType extends AbstractType
             ->add('background_color', HiddenType::class, [
                 'data' => '#FF7F00',
             ])
+            ->add('email', TextType::class, [
+                'required' => true,
+                'constraints' => [
+                    new Email([
+                        'message' => 'L\'adresse email "{{ value }}" n\'est pas valide.',
+                    ]),
+                ],
+            ])
+            ->add('phoneNumber', TextType::class, [
+                'required' => true,
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/^[0-9 +]+$/',
+                        'message' => 'Le numéro de téléphone "{{ value }}" n\'est pas valide.',
+                    ]),
+                ],
+            ]);
         ;
     }
 

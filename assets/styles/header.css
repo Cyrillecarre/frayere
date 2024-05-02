@@ -25,11 +25,13 @@ a {
 
 .header {
     display: flex;
-    height: 10rem;
+    height: 40rem;
     width: 100%;
     text-align: center;
-    background-color: #d9777f89;
-    border-bottom: 2px solid #D02332;
+    background-image: url('../images/imgFrayere.jpg');
+    background-position: center top;
+    background-position-y: -490px;
+    z-index: -1;
 }
 
 .headerNav {
@@ -44,18 +46,17 @@ a {
 .header2 {
     display: flex;
     flex-direction: row;   
-    width: 100%;
     justify-content: flex-end;
     gap: 2.2rem;
     text-align: center;
     align-items: center;
-    background-color: white;
     font-size: 1rem;
     height: 100%;
 }
 
 .header2 a {
     color: #D02332 ;
+    font-size: 0.8rem;
 }
 
 .nav {
@@ -78,10 +79,41 @@ a {
     width: 100%;
     gap: 20px;
     cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.navList i {
+    color: #3b5998;
+}
+
+
+.navBarre {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 4rem;
+    width: 100%;
+    background-color: rgba(178, 175, 175, 0.8);
+
 }
 
 .logo {
-    width: 26%;
-    padding: 0%;
-    margin: 0%;
+    display: flex;
+    width: 26vw;
+    height: 26vw;
+    margin-left: 16rem;
+    margin-top: 3rem;
+    top: 22%;
+    left: 70%;
+    border-radius: 6rem;
+    -webkit-mask-image: 
+    linear-gradient(to right, transparent, black 10%, black 90%, transparent), /* Dégradé transparent sur le bord droit */
+    linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        
+    mask-image: 
+    linear-gradient(to right, transparent, black 30%, rgba(0, 0, 0, 0.054) 79%, transparent), /* Dégradé transparent sur le bord droit */
+    linear-gradient(to bottom, transparent, black 30%, rgba(0, 0, 0, 0.054) 94%, transparent);
+    
 }

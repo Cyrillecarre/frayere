@@ -1,4 +1,29 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'form'}}) }}
+    <div>
+        {{ form_label(form.start, 'date d\'arrivée :', {'attr': {'class': 'formStart'}}) }}
+    </div>
+    <div>
+        {{ form_widget(form.start, {'attr': {'class': 'formStart'}}) }}
+    </div>
+    <div>
+        {{ form_label(form.end, 'date de départ :', {'attr': {'class': 'formEnd'}}) }}
+    </div>
+    <div>
+        {{ form_widget(form.end, {'attr': {'class': 'formEnd'}}) }}
+    </div>
+    <div>
+        {{ form_label(form.email, 'email', {'attr': {'class': 'formEmail'}}) }}
+    </div>
+    <div>
+        {{ form_widget(form.email, {'attr': {'class': 'formEmail'}}) }}
+    </div>
+    <div>
+        {{ form_label(form.phoneNumber, 'numéro de tel', {'attr': {'class': 'formPhone'}}) }}
+    </div>
+    <div>
+        {{ form_widget(form.phoneNumber, {'attr': {'class': 'formPhone'}}) }}
+    </div>
+    {{ form_widget(form.background_color) }}
+    {{ form_widget(form.action) }}
+    <button class="btnAction">{{ button_label|default('Envoyer') }}</button>
 {{ form_end(form) }}

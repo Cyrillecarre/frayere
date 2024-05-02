@@ -7,9 +7,11 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Create new PosteOne</h1>
+    <hr class="hr">
+    <h1 class="titre">Ajouter une réservation Poste 1</h1>
 
     {{ include('poste_one/_form.html.twig') }}
+    <hr class="hr">
 
-    <a href="{{ path('app_poste_one_index') }}">back to list</a>
+    <a href="{{ path('app_poste_one_index') }}" class="btnAction">Retour</a>
 {% endblock %}

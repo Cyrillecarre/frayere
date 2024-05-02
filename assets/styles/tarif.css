@@ -1,0 +1,38 @@
+.hr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 60%;
+    height: 0.2rem;
+    background-color:rgb(5, 123, 84);
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+.reglement {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 70%;
+    height: auto;
+}
+
+.titre {
+    display: flex;
+    justify-content: center;
+    font-size: 4.5rem;
+    font-weight: bold;
+    padding-bottom: 2rem;
+    margin: 0 auto;
+}
+
+.tarifs {
+    display: flex;
+    margin: 0 auto;
+    width: 60%;
+    height: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}

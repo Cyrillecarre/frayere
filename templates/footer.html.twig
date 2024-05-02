@@ -1,0 +1,21 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/footer.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="footer">
+        <img src="{{ asset('images/logoFrayere.jpg') }}" alt="etang" class="etang">
+        <div class="footerDescription">
+            <p>La Frayère</p>
+            <p>Etang de pêche</p>
+            <p>37800 Pouzay</p>
+            <p>06 65 76 72 28</p>
+            <p>&copy; 2024 CARRE Cyrille. Tous droits réservés.</p>
+        </div>
+        <div class="facebook">
+        <p>Suivez-nous sur Facebook</p>
+        <a href="https://www.facebook.com/profile.php?id=100063643567122&locale=fr_FR" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        </div>
+    </div>
+
+{% endblock %}
