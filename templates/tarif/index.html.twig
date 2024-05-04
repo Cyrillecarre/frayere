@@ -10,22 +10,158 @@
 
 {% block body %}
 <hr class="hr">
-        <h1 class="titre">Tarifs</h1>
-            <img src="{{ asset('images/tarif.jpg') }}" alt="tarifs" class="tarifs">
+    <h1 class="titre">Tarifs</h1>
+    <main class="tarifs1">
+        <div class="pecheur">
+            <p>Tarif pour 1 pêcheur</p>
+        </div>
+        <div class="prixJour">
+            <p>Pour 48 heures (2 nuits) : 50 €</p>
+            <p>Pour 72 heures (3 nuits) : 70 €</p>
+            <p>Pour 96 heures (4 nuits) : 85 €</p>
+            <p>Pour 120 heures (5 nuits) : 100 €</p>
+            <p>Pour 144 heures (6 nuits) : 115 €</p>
+            <p>Pour une semaine (7 nuits) : 140 €</p>
+        </div>
+        <div class="pecheur">
+            <p>Tarif pour 2 pêcheurs</p>
+        </div>
+        <div class="prixJour">
+            <p>Pour 48 heures (2 nuits) : 80 €</p>
+            <p>Pour 72 heures (3 nuits) : 120 €</p>
+            <p>Pour 96 heures (4 nuits) : 150 €</p>
+            <p>Pour 120 heures (5 nuits) : 180 €</p>
+            <p>Pour 144 heures (6 nuits) : 210 €</p>
+            <p>Pour une semaine (7 nuits) : 240 €</p>
+        </div>
+    </main>
+    <div class="condition">
+        <p>Pour 1 pêcheur les 24 heures supplémentaires seront facturés: 15 €</p>
+        <p>Pour 2 pêcheurs les 24 heures supplémentaires seront facturés: 30 €</p>
+        <p>Tous les postes peuvent accueillir 2 pêcheurs</p>
+    </div>
+    <div class="visiteurs">
+        <p>Visiteurs interdits sauf conjoint(e) & enfants</p>
+    </div>
+<hr class="hr">
+    <h1 class="titre">Réglement de pêche</h1>
+    <main class="reglement">
+        <div class="article">
+            <aside class="articleNum">1</aside>
+                <p>La pêche de la carpe est authorisée en no-kill, la pêche du carnassier est strictement interdite.<br>
+                Poste 1 pêcheur: 3 cannes maximum <br>
+                Poste 2 pêcheurs: 2 cannes maximum par pêcheur</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">2</aside>
+            <p>Un seul hameçon simple sans ardillon (ou écrasé), d'une taille entre 2 et 10.<br>
+            Interdit de treuiller le poisson<br>
+            Corps de ligne en Nylon (tresse en corps de ligne interdite.)<br>
+            Bas de ligne moins résistant.<br>
+            Plombs coulissants et plastifiés obligatoires.<br>
+            Lead core interdit, juste gaine plombée</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">3</aside>
+            <p>Remise à l'eau immédiate des poissons après pesée et photos.<br>
+            Un scan sera mis à votre disposition pour identification du poisson (le processus vous sera expliqué).</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">4</aside>
+            <p>Manipulation des poissons avec précaution, idéalement dans l'eau<br>
+            Interdiction de prendre les esturgeons à l'épuisette, remise à l'eau rapidement et en douceur</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">5</aside>
+            <p>Tapis de réception XXL ou baignoire et détecteur de touches obligatoires<br>
+            Une paire de waders par poste Obligatoire. Kit de soin obligatoire.</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">6</aside>
+            <p>Amorçage du bord (les embarcations et bateaux amorceurs sont interdits)</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">7</aside>
+            <p>Amorçage massifs interdit, graines trempées et cuites à coeur.<br>
+            Pour toutes questions sur les graines vous pouvez demander par téléphone.<br>
+            Canon à bouillettes interdit</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">8</aside>
+            <p>Le marquage et tout ce qui pourrait abimer ou fatiguer éxagérément les poissons est strictement interdit <br> 
+            et aura pour conséquence l'exclusion immédiate et définitive.</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">9</aside>
+            <p>Il est dangereux et donc interdit d'avancer dans l'eau hors aménagements effectués.</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">10</aside>
+            <p>La frayère est une sablière de pêche sportive, le calme est de rigueur</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">11</aside>
+            <p>Une vérification pourra être demandé</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">12</aside>
+            <p>Merci de respecter ce réglement<br>
+            Pour le bien être du poisson et du pêcheurs</p>
+        </div>
+    </main>
     <hr class="hr">
-
-        <h1 class="titre">Réglement de pêche</h1>
-            <div class="reglement">
-                <img src="{{ asset('images/reglement_carpe.jpg') }}" alt="reglement" class="reglement">
-                <img src="{{ asset('images/reglement_carpe2.jpg') }}" alt="reglement" class="reglement">
-            </div>
-    <hr class="hr">
-
         <h1 class="titre">Réglement intérieur</h1>
-            <div class="reglement">
-                <hr class="hr">
-                <img src="{{ asset('images/reglement_interieur.jpg') }}" alt="reglement" class="reglement">
-                <img src="{{ asset('images/reglement_interieur2.jpg') }}" alt="reglement" class="reglement">
-            </div>
+
+    <main class="reglement">
+        <div class="article">
+            <aside class="articleNum">1</aside>
+                <p>Le site reste toujours fermé, pour l'accès appeler le 06.59.54.30.20 ou 06.65.76.72.28 <br>
+                Aucun véhicule ne doit rester sur les postes (sauf déchargement et chargement du matériel), <br>
+                ils doivent être sur le parking indiqué sur place. Aucune entrée et sortie n'est autorisé <br>
+                entre 21h et 8h.</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">2</aside>
+            <p>Aucun visiteur n'est accepté hormis conjoints/es et enfants. Le parking visiteur se trouve <br>
+            à l'entrée du site.</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">3</aside>
+            <p>Chiens acceptés s'ils ne quittent pas le poste et sont attachés. Feu au sol interdit, réchaud <br>
+            et barbecue sur pied autorisé. Bivouac camouflage obligatoire pour se fondre dans la nature. <br>
+            Merci de respecter les zones de pêches (repères). Ne pas laisser votre poste sans surveillance <br>
+            si les cannes sont tendues.</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">4</aside>
+            <p>2 toilettes sèches réparties autour de la sablière. Merci de les laisser propre.</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">5</aside>
+            <p>Aucun débordement ne sera autorisés sur le site (L'abus d'alcool est dangereux pour la santé, <br>
+            à consommer avec modération)</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">6</aside>
+            <p>Les postes et l'environnement doivent être nettoyés avant le départ. Rien ne doit être jeté <br>
+            dans l'étang. <br>
+            Les dechets doivent être emmenés (prévoir sacs poubelles)</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">7</aside>
+            <p>Le vol de poissons est passible de poursuites judiciaires (nos poissons sont pucés, notre recensement <br>
+            est toujours à jour). Le site est sous vidéo surveillance. Des contrôles pourront être effectués <br>
+            dans les véhicules à la sortie du site.</p>
+        </div>
+        <div class="article">
+        <aside class="articleNum">8</aside>
+            <p>En venant pêcher sur ce site, vous nous donnez votre consentement pour la diffusion de vos photos <br>
+            (merci de nous prévenir si vous souhaitez faire respecter votre droit à l'image), et vous vous engagez à <br>
+            à respecter ce réglement. Nous déclinons toutes responsabilités en cas d'incidents sur le site <br>
+            (accident, noyade, bagarre, vols...) Un contrôle pourra être effectué par un garde durant votre séjour. <br>
+            Le non respect de celui-ci entrainera un avertissement et s'il le faut, une exclusion définitive <br>
+            du site sans remboursement.</p>
+        </div>
+    </main>
     <hr class="hr">
 {% endblock %}

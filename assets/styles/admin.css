@@ -7,18 +7,20 @@
     margin: 0 auto;
 }
 
+.titre2 {
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin: 0 auto;
+}
+
 .btnPoste {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 1rem;
     margin-top: 1rem;
-}
-
-.btnPoste a {
-    border: 1px solid black;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
 }
 
 .titreReservation {
@@ -28,4 +30,18 @@
     font-weight: bold;
     margin-top: 5rem;
     margin-bottom: 1em;
+}
+
+.btnAction {
+    display: flex;
+    background-color: salmon;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    margin: 0 auto;
+    border-radius: 5rem;
+    width: 6rem;
+    height: 3rem;
+    border: 1px solid rgb(5, 123, 84);
 }

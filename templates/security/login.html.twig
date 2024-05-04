@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/connexion.css') }}">
+{% endblock %}
 
 {% block body %}
 <form method="post">
@@ -13,19 +16,17 @@
             You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
+    <hr class="hr">
+    <h1 class="titre">Connexion à l'espace privé</h1>
+    <div class="form">
+        <label for="inputEmail">Email</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="formInput" autocomplete="email" required autofocus>
+        <label for="inputPassword" class="formLabel">Mot de passe</label>
+        <input type="password" name="password" id="inputPassword" class="formInput" autocomplete="current-password" required>
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <button class="formSubmit" type="submit">Envoyer</button>
+    </div>
+    <hr class="hr">
 </form>
 {% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/contact.css') }}">
+{% endblock %}
+
+{% block title %}Hello ContactController!{% endblock %}
+
+{% block body %}
+<h1>Confirmation</h1>
+    
+<p>Votre message a bien été envoyé</p>
+
+<a href="{{ path('app_home') }}" class="btnAction">Retour</a>
+
+{% endblock %}

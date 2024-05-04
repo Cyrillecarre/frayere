@@ -8,15 +8,15 @@
 {% block body %}
 <h1 class="titre">Bonjour Johannes</h1>
     <ul class="btnPoste">
-        <a href="{{ path('app_poste_one_index') }}">Poste 1</a>
-        <a href="{{ path('app_poste_two_index') }}">Poste 2</a>
-        <a href="{{ path('app_poste_three_index') }}">Poste 3</a>
-        <a href="{{ path('app_poste_four_index') }}">Poste 4</a>
+        <a href="{{ path('app_poste_one_index') }}" class="btnAction">Poste 1</a>
+        <a href="{{ path('app_poste_two_index') }}" class="btnAction">Poste 2</a>
+        <a href="{{ path('app_poste_three_index') }}" class="btnAction">Poste 3</a>
+        <a href="{{ path('app_poste_four_index') }}" class="btnAction">Poste 4</a>
     </ul>
 
 <h3 class="titreReservation">Voici le récapitulatif des réservations</h3>
     <div>
-        <h4>Réservations du Poste 1</h4>
+        <h4 class="titre2">Réservations du Poste 1</h4>
           <ul>
             {% for poste_one in poste_ones %}
                 <li>{{ poste_one.id }} - 
@@ -31,8 +31,8 @@
             {% endfor %}
         </ul>
     </div>
-    <div class="poste-two-reservations">
-        <h4>Réservations de Poste 2</h4>
+    <div>
+        <h4 class="titre2">Réservations de Poste 2</h4>
         <ul>
             {% for poste_two in poste_twos %}
                 <li>{{ poste_two.id }} - 
@@ -48,7 +48,7 @@
         </ul>
     </div>
     <div>
-        <h4>Réservations du Poste 3</h4>
+        <h4 class="titre2">Réservations du Poste 3</h4>
           <ul>
             {% for poste_three in poste_threes %}
                 <li>{{ poste_three.id }} - 
@@ -64,7 +64,7 @@
         </ul>
     </div>
     <div>
-        <h4>Réservations du Poste 4</h4>
+        <h4 class="titre2">Réservations du Poste 4</h4>
           <ul>
             {% for poste_four in poste_fours %}
                 <li>{{ poste_four.id }} - 

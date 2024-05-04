@@ -7,9 +7,11 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="titre">Modifier Poste 2</h1>
+    <hr class="hr">
+    <h1 class="titre">Ajouter une réservation Poste 2</h1>
 
     {{ include('poste_two/_form.html.twig') }}
+    <hr class="hr">
 
-    <a href="{{ path('app_poste_two_index') }}" class="btnAction">Retour</a>
+    <a href="{{ path('app_reservation') }}" class="btnAction">Retour</a>
 {% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/contact.css') }}">
+{% endblock %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+<hr class="hr">
+<h1 class="titre">Contactez moi</h1>
+        {{ form_start(formulaire, {'attr': {'class': 'form'}}) }}
+            {{ form_label(formulaire.email, 'Adresse e-mail', {'label_attr': {'class': 'formLabel'}}) }}
+            {{ form_widget(formulaire.email, {'attr': {'class': 'formInput', 'placeholder': 'Votre e-mail'}}) }}
+            {{ form_errors(formulaire.email) }}
+            {{ form_label(formulaire.message, 'Message', {'label_attr': {'class': 'formLabel'}}) }}
+            {{ form_widget(formulaire.message, {'attr': {'class': 'formInput', 'placeholder': 'Votre message'}}) }}
+            {{ form_errors(formulaire.message) }}
+            {{ form_widget(formulaire.envoyer, {'attr': {'class': 'formSubmit'}}) }}
+        {{ form_end(formulaire) }}
+    <hr class="hr">
+
+{% endblock %}

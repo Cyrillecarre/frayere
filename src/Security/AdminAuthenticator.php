@@ -48,7 +48,7 @@ class AdminAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-         return new RedirectResponse($this->urlGenerator->generate('app_home'));
+         return new RedirectResponse($this->urlGenerator->generate('app_admin'));
     }
 
     protected function getLoginUrl(Request $request): string
