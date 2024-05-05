@@ -33,7 +33,12 @@ class PosteTwoController extends AbstractController
             $entityManager->persist($posteTwo);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_poste_two_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
+        }
+        else {
+            $this->addFlash('error', 'Une erreur est survenue lors de la réservation. 
+            Vérifiez votre adresse mail au format exemple@exemple.com 
+            et vérifiez votre numéro au format: 0606060606 Merci de réessayer.');
         }
 
         return $this->render('poste_two/new.html.twig', [
@@ -53,7 +58,6 @@ class PosteTwoController extends AbstractController
     #[Route('/{id}/approve', name: 'app_approve_reservation_two')]
     public function approveReservation(PosteTwo $posteTwo, EntityManagerInterface $entityManager): Response
     {
-        // Marquez la réservation comme approuvée
         $posteTwo->setApprouved(true);
         $entityManager->flush();
 

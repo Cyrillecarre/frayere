@@ -85,7 +85,26 @@ class PosteOne
     public function setApprouved(bool $isApprouved): self
     {
         $this->isApprouved = $isApprouved;
-        $this->background_color = $isApprouved ? '#008000' : '#FF7F00';
+        if ($isApprouved) {
+            switch (true) {
+                case $this instanceof PosteOne:
+                    $this->background_color = '#008000'; // Vert
+                    break;
+                case $this instanceof PosteTwo:
+                    $this->background_color = '#0000FF'; // Bleu
+                    break;
+                case $this instanceof PosteThree:
+                    $this->background_color = '#FFA500'; // Orange
+                    break;
+                case $this instanceof PosteFour:
+                    $this->background_color = '#FF1493'; // Rose
+                    break;
+                default:
+                    $this->background_color = '#FF7F00'; // Orange par défaut
+            }
+        } else {
+            $this->background_color = '#FF7F00'; // Orange lorsque non approuvé
+        }
 
         return $this;
     }

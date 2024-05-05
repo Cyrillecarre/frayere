@@ -9,6 +9,7 @@ use App\Form\ContactType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use App\Service\Sanitize;
 
 
 
@@ -30,9 +31,11 @@ class ContactController extends AbstractController
             $email = (new Email())
             ->from($adress)
             ->to('cyrille.carre@gmail.com')
+            ->subject('Nouveau message de la part de ' . $adress)
             ->text($message);
 
             $mailer->send($email);
+            dd($email);
             return $this->redirectToRoute('app_validation');
         }
 

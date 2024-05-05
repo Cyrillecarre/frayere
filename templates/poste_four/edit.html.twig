@@ -9,7 +9,8 @@
 {% block body %}
     <h1 class="titre">Modifier Poste 4</h1>
 
-    {{ include('poste_four/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('poste_four/_form.html.twig', {'button_label': 'Modifier'}) }}
+    <a href="{{ path('app_approve_reservation_four', {'id': poste_four.id}) }}" class="btnAction">Approuver</a>
 
     <a href="{{ path('app_poste_four_index') }}" class="btnAction">Retour</a>
 

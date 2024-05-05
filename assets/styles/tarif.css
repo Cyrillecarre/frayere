@@ -122,6 +122,6 @@
     height: auto;
     border-radius: 50%;
     justify-content: center;
-    margin-top: -2rem; /* Décalage de 5rem vers le haut */
+    margin-top: -2rem;
     margin-left: -2.5rem;
 }

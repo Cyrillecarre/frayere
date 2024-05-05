@@ -9,9 +9,10 @@
 {% block body %}
     <h1>Modifier Poste 3</h1>
 
-    {{ include('poste_three/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('poste_three/_form.html.twig', {'button_label': 'Modifier'}) }}
+    <a href="{{ path('app_approve_reservation_three', {'id': poste_three.id}) }}" class="btnAction">Approuver</a>
 
-    <a href="{{ path('app_poste_three_index') }}" class=""btnAction>Retour</a>
+    <a href="{{ path('app_poste_three_index') }}" class="btnAction">Retour</a>
 
     {{ include('poste_three/_delete_form.html.twig') }}
 {% endblock %}

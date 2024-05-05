@@ -20,7 +20,7 @@
 
 .tableIndex {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     height: 3rem;
     justify-content: center;
     background-color: rgb(216, 216, 214);
@@ -32,7 +32,7 @@
 
 .tableValeur {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     justify-content: center;
     height: 6rem;
     text-align: center;
@@ -163,5 +163,18 @@
     width: 60%;
     height: 2rem;
     background-color: rgb(216, 216, 214);
+    gap: 1rem;
+}
+
+.alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    font-size: 1.3rem;
+    color: red;
+    width: 60%;
+    height: 4rem;
+    background-color: rgb(35, 35, 33);
     gap: 1rem;
 }

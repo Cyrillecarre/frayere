@@ -33,7 +33,7 @@ class PosteOneController extends AbstractController
             $entityManager->persist($posteOne);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_poste_one_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('poste_one/new.html.twig', [

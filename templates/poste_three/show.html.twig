@@ -10,26 +10,32 @@
     <h1 class="titre">Poste 3</h1>
 
     <table class="table">
+        <thead>
+            <tr class="tableIndex">
+                <th>Arrivée</th>
+                <th>Départ</th>
+                <th>Email</th>
+                <th>Tel</th>
+                <th>Validé</th>
+                <th>actions</th>
+            </tr>
         <tbody>
-            <tr>
-                <th>Start</th>
-                <td>{{ poste_three.start ? poste_three.start|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>End</th>
-                <td>{{ poste_three.end ? poste_three.end|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>IsApprouved</th>
-                <td>{{ poste_three.isApprouved ? 'Yes' : 'No' }}</td>
+            <tr class="tableValeur">
+                <td>{{ poste_three.start ? poste_three.start|date('d-m-Y H:i:s') : '' }}</td>
+                <td>{{ poste_three.end ? poste_three.end|date('d-m-Y H:i:s') : '' }}</td>
+                <td>{{ poste_three.email }}</td>
+                <td>{{ poste_three.phoneNumber }}</td>
+                <td>{{ poste_three.isApprouved ? 'Oui' : 'Non' }}</td>
+                <td>
+                    <a href="{{ path('app_poste_one_edit', {'id': poste_three.id}) }}" class="btnAction">modifier</a>
+                </td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_poste_three_index') }}" class="btnAction">Retour</a>
-
-    <a href="{{ path('app_poste_three_edit', {'id': poste_three.id}) }}" class="btnAction">Modifier</a>
     <a href="{{ path('app_approve_reservation_three', {'id': poste_three.id}) }}" class="btnAction">Approuver</a>
+    <a href="{{ path('app_poste_three_edit', {'id': poste_three.id}) }}" class="btnAction">Modifier</a>
+    <a href="{{ path('app_poste_three_index') }}" class="btnAction">Retour</a>
 
     {{ include('poste_three/_delete_form.html.twig') }}
 {% endblock %}

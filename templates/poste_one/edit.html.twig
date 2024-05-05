@@ -7,11 +7,11 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Edit PosteOne</h1>
+    <h1 class="titre">Modifier Poste 1</h1>
 
-    {{ include('poste_one/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_poste_one_index') }}">back to list</a>
-
+    {{ include('poste_one/_form.html.twig', {'button_label': 'Modifier'}) }}
+    <a href="{{ path('app_approve_reservation_one', {'id': poste_one.id}) }}" class="btnAction">Approuver</a>
     {{ include('poste_one/_delete_form.html.twig') }}
+    <a href="{{ path('app_poste_one_index') }}" class="btnAction">Retour</a>
+
 {% endblock %}

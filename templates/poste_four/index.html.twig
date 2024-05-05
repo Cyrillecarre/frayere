@@ -14,6 +14,8 @@
             <tr class="tableIndex">
                 <th>Arrivée</th>
                 <th>Départ</th>
+                <th>Email</th>
+                <th>Tel</th>
                 <th>Validé</th>
                 <th>actions</th>
             </tr>
@@ -21,9 +23,11 @@
         <tbody>
         {% for poste_four in poste_fours %}
             <tr class="tableValeur">
-                <td>{{ poste_four.start ? poste_four.start|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ poste_four.end ? poste_four.end|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ poste_four.isApprouved ? 'Yes' : 'No' }}</td>
+                <td>{{ poste_four.start ? poste_four.start|date('d-m-Y H:i:s') : '' }}</td>
+                <td>{{ poste_four.end ? poste_four.end|date('d-m-Y H:i:s') : '' }}</td>
+                <td>{{ poste_four.email }}</td>
+                <td>{{ poste_four.phoneNumber }}</td>
+                <td>{{ poste_four.isApprouved ? 'Oui' : 'Non' }}</td>
                 <td>
                     <a href="{{ path('app_poste_four_show', {'id': poste_four.id}) }}" class="btnAction">Voir</a>
                 </td>

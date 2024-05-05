@@ -17,67 +17,115 @@
 <h3 class="titreReservation">Voici le récapitulatif des réservations</h3>
     <div>
         <h4 class="titre2">Réservations du Poste 1</h4>
-          <ul>
+          <table class="table">
+            <thead>
+                <tr class="tableIndex">
+                    <th>Arrivée</th>
+                    <th>Départ</th>
+                    <th>Email</th>
+                    <th>Tel</th>
+                    <th>Validé</th>
+                </tr>
+            </thead>
+            <tbody>
             {% for poste_one in poste_ones %}
-                <li>{{ poste_one.id }} - 
-                    {{ poste_one.title }} - 
-                    {{ poste_one.start ? poste_one.start|date('d-m-Y') : '' }} / 
-                    {{ poste_one.end ? poste_one.end|date('d-m-Y') : '' }} - 
-                    {{ poste_one.isApprouved ? 'Yes' : 'No' }}
-                    <a href="{{ path('app_poste_one_edit', {'id': poste_one.id}) }}">Modifier</a>
-                </li>
+                <tr class="tableValeur">
+                    <td>{{ poste_one.start ? poste_one.start|date('d-m-Y') : '' }}</td>
+                    <td>{{ poste_one.end ? poste_one.end|date('d-m-Y') : '' }}</td>
+                    <td>{{ poste_one.email }}</td>
+                    <td>{{ poste_one.phoneNumber }}</td>
+                    <td>{{ poste_one.isApprouved ? 'Oui' : 'Non' }}</td>
+                </tr>
             {% else %}
                 <li>no records found</li>
             {% endfor %}
-        </ul>
+            </tbody>
+        </table>
     </div>
+    <hr class="hr">
     <div>
         <h4 class="titre2">Réservations de Poste 2</h4>
-        <ul>
+        <table class="table">
+            <thead>
+                <tr class="tableIndex">
+                    <th>Arrivée</th>
+                    <th>Départ</th>
+                    <th>Email</th>
+                    <th>Tel</th>
+                    <th>Validé</th>
+                </tr>
+            </thead>
+            <tbody>
             {% for poste_two in poste_twos %}
-                <li>{{ poste_two.id }} - 
-                    {{ poste_two.title }} - 
-                    {{ poste_two.start ? poste_two.start|date('d-m-Y') : '' }} / 
-                    {{ poste_two.end ? poste_two.end|date('d-m-Y') : '' }} - 
-                    {{ poste_two.isApprouved ? 'Yes' : 'No' }}
-                    <a href="{{ path('app_poste_two_edit', {'id': poste_two.id}) }}">Modifier</a>
-                </li>
+                <tr class="tableValeur">
+                    <td>{{ poste_two.start ? poste_two.start|date('d-m-Y') : '' }}</td>
+                    <td>{{ poste_two.end ? poste_two.end|date('d-m-Y') : '' }}</td>
+                    <td>{{ poste_two.email }}</td>
+                    <td>{{ poste_two.phoneNumber }}</td>
+                    <td>{{ poste_two.isApprouved ? 'Oui' : 'Non' }}</td>
+                </tr>
             {% else %}
                 <li>no records found</li>
             {% endfor %}
-        </ul>
+            </tbody>
+        </table>
     </div>
+    <hr class="hr">
     <div>
         <h4 class="titre2">Réservations du Poste 3</h4>
-          <ul>
+          <table class="table">
+            <thead>
+                <tr class="tableIndex">
+                    <th>Arrivée</th>
+                    <th>Départ</th>
+                    <th>Email</th>
+                    <th>Tel</th>
+                    <th>Validé</th>
+                </tr>
+            </thead>
+            <tbody>
             {% for poste_three in poste_threes %}
-                <li>{{ poste_three.id }} - 
-                    {{ poste_three.title }} - 
-                    {{ poste_three.start ? poste_one.start|date('d-m-Y') : '' }} / 
-                    {{ poste_three.end ? poste_one.end|date('d-m-Y') : '' }} - 
-                    {{ poste_three.isApprouved ? 'Yes' : 'No' }}
-                    <a href="{{ path('app_poste_three_edit', {'id': poste_three.id}) }}">Modifier</a>
-                </li>
+                <tr class="tableValeur">
+                    <td>{{ poste_three.start ? poste_three.start|date('d-m-Y') : '' }}</td>
+                    <td>{{ poste_three.end ? poste_three.end|date('d-m-Y') : '' }}</td>
+                    <td>{{ poste_three.email }}</td>
+                    <td>{{ poste_three.phoneNumber }}</td>
+                    <td>{{ poste_three.isApprouved ? 'Oui' : 'Non' }}</td>
+                </tr>
             {% else %}
                 <li>no records found</li>
             {% endfor %}
-        </ul>
+            </tbody>
+        </table>
     </div>
+    <hr class="hr">
     <div>
         <h4 class="titre2">Réservations du Poste 4</h4>
-          <ul>
+          <table class="table">
+            <thead>
+                <tr class="tableIndex">
+                    <th>Arrivée</th>
+                    <th>Départ</th>
+                    <th>Email</th>
+                    <th>Tel</th>
+                    <th>Validé</th>
+                </tr>
+            </thead>
+            <tbody>
             {% for poste_four in poste_fours %}
-                <li>{{ poste_four.id }} - 
-                    {{ poste_four.title }} - 
-                    {{ poste_four.start ? poste_one.start|date('d-m-Y') : '' }} / 
-                    {{ poste_four.end ? poste_one.end|date('d-m-Y') : '' }} - 
-                    {{ poste_four.isApprouved ? 'Yes' : 'No' }}
-                    <a href="{{ path('app_poste_four_edit', {'id': poste_four.id}) }}">Modifier</a>
-                </li>
+                <tr class="tableValeur">
+                    <td>{{ poste_four.start ? poste_four.start|date('d-m-Y') : '' }}</td>
+                    <td>{{ poste_four.end ? poste_four.end|date('d-m-Y') : '' }}</td>
+                    <td>{{ poste_four.email }}</td>
+                    <td>{{ poste_four.phoneNumber }}</td>
+                    <td>{{ poste_four.isApprouved ? 'Oui' : 'Non' }}</td>
+                </tr>
             {% else %}
                 <li>no records found</li>
             {% endfor %}
-        </ul>
+            </tbody>
+        </table>
     </div>
+    <hr class="hr">
 {% endblock %}
 

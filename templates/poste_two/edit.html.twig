@@ -10,7 +10,7 @@
     <h1 class="titre">Modifier Poste 2</h1>
 
     {{ include('poste_two/_form.html.twig', {'button_label': 'Update'}) }}
-    <a href="{{ path('app_approve_reservation', {'id': poste_two.id}) }}" class="btnAction">Approuver</a>
+    <a href="{{ path('app_approve_reservation_two', {'id': poste_two.id}) }}" class="btnAction">Approuver</a>
 
     <a href="{{ path('app_poste_two_index') }}" class="btnAction">Retour</a>
 
