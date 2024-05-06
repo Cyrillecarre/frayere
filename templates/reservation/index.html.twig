@@ -38,9 +38,10 @@
     </script>
 {% endblock %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Reservation{% endblock %}
 
 {% block body %}
+<hr class="hr">
     <h1 class="titre">Réservation</h1>
     <div>
       <ul class="reservation">
@@ -51,6 +52,13 @@
       </ul>
     </div>
     <hr class="hr">
+    <div class="couleur">
+      <p>Poste 1 : <aside class="couleurOne"></aside></p>
+      <p>Poste 2 : <aside class="couleurTwo"></aside></p>
+      <p>Poste 3 : <aside class="couleurThree"></aside></p>
+      <p>Poste 4 : <aside class="couleurFour"></aside></p>
+      <p>Réservation en attente de validation : <aside class="couleurFive"></aside></p>
+    </div>
     <div class="calendar" id='calendar'>
     </div>
     <hr class="hr">

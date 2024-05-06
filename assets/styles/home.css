@@ -21,7 +21,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 1rem;
-    width: 100%;
+    width: 80%;
     margin: 0 auto;
 }
 
@@ -88,3 +88,154 @@
     border-color: rgb(5, 123, 84);
 }
 
+.couleur {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;  
+    margin: 0 auto;
+    font-size: 1rem;
+    margin-top: 3.5rem;
+}
+
+.couleurOne {
+    display: flex;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    background-color: #008000;
+}
+
+.couleurTwo {
+    display: flex;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    background-color: #0000FF;
+}
+
+.couleurThree {
+    display: flex;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    background-color: #FF0000;
+}
+
+.couleurFour {
+    display: flex;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    background-color: #FF1493;
+}
+
+.couleurFive {
+    display: flex;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    background-color: #FF7F00;
+}
+
+.map {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35rem;
+    height: 35rem;
+    margin: 0 auto;
+    margin-top: 5rem;
+}
+
+@media only screen and (max-width: 768px) {
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Rajdhani;
+        overflow-x: hidden;
+    }
+
+    .titre {
+        display: flex;
+        justify-content: center;
+        font-size: 2.5rem;
+        font-weight: bold;
+        padding-bottom: 2rem;
+        margin: 0 auto;
+    }
+
+    .iconDescription {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1rem;
+        width: 60%;
+        margin: 0 auto;
+    }
+    
+    .icon1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        font-size: 4rem;
+        margin-top: 1.5rem;
+    
+    }
+    
+    .icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;  
+    }
+
+    .etang {
+        display: flex;
+        width: 100%;
+        height: 100%;
+    }
+
+    .map {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20rem;
+        height: 22rem;
+        margin: 0 auto;
+        margin-top: 5rem;
+    }
+
+    .reservation {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto;
+        padding: 0;
+        width: 60%;
+        list-style: none;
+    }
+
+    .couleur {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;  
+        margin: 0 auto;
+        font-size: 1rem;
+        margin-top: 3.5rem;
+    }
+
+    .calendar {
+        display: flex;
+        padding-top: 0.5rem;
+        width: 80%;
+        height: 45rem;
+        margin: 0 auto;
+    }
+
+}

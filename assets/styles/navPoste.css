@@ -30,3 +30,18 @@
     margin-top: 5rem;
     margin-bottom: 5rem;
 }
+
+@media only screen and (max-width: 768px) {
+
+    .titre {
+        font-size: 3rem;
+    }
+
+    .poste {
+        width: 90%;
+    }
+
+    .hr {
+        width: 80%;
+    }
+}

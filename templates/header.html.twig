@@ -11,25 +11,23 @@
 </head>
 {% block body %}
 <body>
-    <header class="header">
-        <img class="logo" src="{{ asset('images/logoFrayere.jpg') }}" alt="logo">
-    </header>
-    <div class="navBarre">
-        <div class="burger-menu" id="burger-menu">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
+    <div class="container"> 
+        <header class="header">
+            <img class="logo" src="{{ asset('images/logoFrayere.jpg') }}" alt="logo">
+        </header>
+        <div class="navBarre">
+            <nav class="nav">
+                <ul class="navListe">
+                    <li class="navList"><a href="{{ path('app_home') }}">Accueil</a></li>
+                    <li class="navList"><a href="{{ path('app_reservation') }}">Réservation</a></li>
+                    <li class="navList"><a href="{{ path('app_poste') }}">Postes</a></li>
+                    <li class="navList"><a href="{{ path('app_tarif') }}">Tarifs/Réglementation</a></li>
+                    <li class="navList"><a href="{{ path('app_contact') }}">Contact</a></li>
+                    <li class="navList"><a href="https://www.facebook.com/profile.php?id=100063643567122&locale=fr_FR" target="_blank"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li class="header2"><a href="{{ path('app_login') }}"><i class="fa-solid fa-user-secret"></i> Connexion</a></li>
+                </ul>
+            </nav>
         </div>
-        <nav class="nav">
-            <ul class="navListe">
-                <li class="navList"><a href="{{ path('app_home') }}">Accueil</a></li>
-                <li class="navList"><a href="{{ path('app_reservation') }}">Réservation</a></li>
-                <li class="navList"><a href="{{ path('app_poste') }}">Postes</a></li>
-                <li class="navList"><a href="{{ path('app_tarif') }}">Tarifs/Réglementation</a></li>
-                <li class="navList"><a href="{{ path('app_contact') }}">Contact</a></li>
-                <li class="navList"><a href="https://www.facebook.com/profile.php?id=100063643567122&locale=fr_FR" target="_blank"><i class="fa-brands fa-facebook"></i></a></li>
-                <li class="header2"><a href="{{ path('app_login') }}"><i class="fa-solid fa-user-secret"></i> Connexion</a></li>
-            </ul>
-        </nav>
     </div>
+</body>
     {% endblock %}

@@ -4,12 +4,12 @@
     <link rel="stylesheet" href="{{ asset('styles/home.css') }}">
 {% endblock %}
 {% block javascripts %}
-    
 {% endblock %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
+    
     <hr class="hr">
     <h1 class="titre">Quelques infos</h1>
     <div class="iconDescription">
@@ -43,5 +43,9 @@
     <hr class="hr">
         <img src="{{ asset('images/environnement.jpg') }}" alt="etang" class="etang">
     <hr class="hr">
-
+    <div id="map" class="map">
+                api map
+    </div> 
+    <script src="{{ asset('js/home.js') }}"></script>
+    <hr class="hr">
 {% endblock %}

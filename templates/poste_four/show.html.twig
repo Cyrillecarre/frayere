@@ -27,13 +27,13 @@
                 <td>{{ poste_four.phoneNumber }}</td>
                 <td>{{ poste_four.isApprouved ? 'Oui' : 'Non' }}</td>
                 <td>
-                    <a href="{{ path('app_poste_one_edit', {'id': poste_four.id}) }}" class="btnAction">modifier</a>
+                    <a href="{{ path('app_poste_four_edit', {'id': poste_four.id}) }}" class="btnAction">modifier</a>
                 </td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_approve_reservation_four', {'id': poste_Four.id}) }}" class="btnAction">Approuver</a>
+    <a href="{{ path('app_approve_reservation_four', {'id': poste_four.id}) }}" class="btnAction">Approuver</a>
     <a href="{{ path('app_poste_four_edit', {'id': poste_four.id}) }}" class="btnAction">Modifier</a>
     <a href="{{ path('app_poste_four_index') }}" class="btnAction">Retour</a>
 

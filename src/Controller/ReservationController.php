@@ -15,6 +15,11 @@ class ReservationController extends AbstractController
     #[Route('/reservation', name: 'app_reservation')]
     public function index(posteOneRepository $posteOne, PosteTwoRepository $posteTwo, PosteThreeRepository $posteThree, PosteFourRepository $posteFour): Response
     {
+
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_logout');    
+        }
+        
         $events1 = $posteOne->findAll();
         $rdvs = [];
         foreach($events1 as $event1){

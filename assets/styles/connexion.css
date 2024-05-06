@@ -65,3 +65,32 @@
     grid-column: span 2;
     border-color: rgb(5, 123, 84);
 }
+
+@media only screen and (max-width: 768px) {
+
+    .titre {
+        text-align: center;
+        font-size: 2.5rem;
+
+    }
+
+    .form {
+        width: 90%;
+    }
+
+    .hr {
+        width: 80%;
+    }
+
+    .formInput {
+        width: 8rem;
+    }
+
+    .formLabel {
+        width: 8rem;
+    }
+
+    .formSubmit {
+        width: 7rem;
+    }
+}

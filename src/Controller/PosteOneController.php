@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 #[Route('/poste/one')]
 class PosteOneController extends AbstractController
@@ -23,7 +25,7 @@ class PosteOneController extends AbstractController
     }
 
     #[Route('/new', name: 'app_poste_one_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
         $posteOne = new PosteOne();
         $form = $this->createForm(PosteOneType::class, $posteOne);
@@ -33,6 +35,8 @@ class PosteOneController extends AbstractController
             $entityManager->persist($posteOne);
             $entityManager->flush();
 
+            $this->sendAdminNotificationEmail($mailer);
+
             return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -40,6 +44,17 @@ class PosteOneController extends AbstractController
             'poste_one' => $posteOne,
             'form' => $form,
         ]);
+    }
+
+    private function sendAdminNotificationEmail(MailerInterface $mailer): void
+    {
+        $email = (new Email())
+            ->from('notification@exemple.com')
+            ->to('admin@example.com') // Adresse e-mail de l'administrateur
+            ->subject('Nouvelle réservation créée')
+            ->html('<p>Une nouvelle réservation au poste 1</p>');
+
+        $mailer->send($email);
     }
 
     #[Route('/{id}', name: 'app_poste_one_show', methods: ['GET'])]
@@ -56,7 +71,7 @@ class PosteOneController extends AbstractController
         $posteOne->setApprouved(true);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_poste_one_edit', ['id' => $posteOne->getId()]);
+        return $this->redirectToRoute('app_admin');
     }
 
     #[Route('/{id}/edit', name: 'app_poste_one_edit', methods: ['GET', 'POST'])]
@@ -85,6 +100,6 @@ class PosteOneController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_poste_one_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
     }
 }

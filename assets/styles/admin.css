@@ -88,3 +88,66 @@
     margin-top: 5rem;
     margin-bottom: 5rem;
 }
+
+@media only screen and (max-width: 768px) {
+
+    .titre {
+        text-align: center;
+        font-size: 2.5rem;
+    }
+
+    .titre2 {
+        text-align: center;
+        font-size: 1.5rem;
+        padding-bottom: 1rem;
+    }
+
+    .btnPoste {
+        display: flex;
+        flex-direction: row;
+        margin: 0 auto;
+        width: 80%;
+        gap: 0.5rem;
+        justify-content: center;
+        margin-top: 1rem;
+        padding: 0;
+        padding-bottom: 3rem;
+    }
+
+    .titreReservation {
+        display: none;
+    }
+
+    .table {
+        display: grid;
+        align-items: center;
+        margin: 0;
+        width: 100%;
+    }
+
+    .tableIndex {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        height: 3rem;
+        justify-content: center;
+        background-color: rgb(216, 216, 214);
+        align-items: center;
+        gap: 0.2rem;
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .tableValeur {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        justify-content: center;
+        font-size: 0.8rem;
+        height: 6rem;
+        text-align: center;
+        background-color: rgb(181, 181, 177);
+        align-items: center;
+        gap: 0.2rem;
+        width: 95%;
+        margin: 0 auto;
+    }
+}

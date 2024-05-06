@@ -9,7 +9,6 @@ use App\Form\ContactType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use App\Service\Sanitize;
 
 
 
@@ -18,6 +17,9 @@ class ContactController extends AbstractController
     #[Route('/contact', name: 'app_contact')]
     public function index(Request $request, MailerInterface $mailer): Response
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_logout');    
+        }
 
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
@@ -35,7 +37,6 @@ class ContactController extends AbstractController
             ->text($message);
 
             $mailer->send($email);
-            dd($email);
             return $this->redirectToRoute('app_validation');
         }
 

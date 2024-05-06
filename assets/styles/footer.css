@@ -36,3 +36,45 @@
     height: auto;
     margin: 0 auto;
 }
+
+@media only screen and (max-width: 768px) {
+
+    .footer {
+        display: flex;
+        flex-direction: column;
+        background-color: black;
+        height: 42rem;
+    }
+
+    .footer img {
+        margin: 0 auto;
+        width: 50%;
+        height: auto;
+    }
+
+    .footerDescription {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        color: white;
+    }
+
+    .facebook {
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        margin-right: 0;
+    }
+
+    .facebook i {
+        font-size: 5rem;
+        color: #3b5998;
+        height: auto;
+        margin: 0 auto;
+    }
+}

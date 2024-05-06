@@ -9,7 +9,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Mime\Email;
 
 #[Route('/poste/three')]
 class PosteThreeController extends AbstractController
@@ -23,7 +25,7 @@ class PosteThreeController extends AbstractController
     }
 
     #[Route('/new', name: 'app_poste_three_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
         $posteThree = new PosteThree();
         $form = $this->createForm(PosteThreeType::class, $posteThree);
@@ -33,6 +35,8 @@ class PosteThreeController extends AbstractController
             $entityManager->persist($posteThree);
             $entityManager->flush();
 
+            $this->sendAdminNotificationEmail($mailer);
+
             return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -40,6 +44,17 @@ class PosteThreeController extends AbstractController
             'poste_three' => $posteThree,
             'form' => $form,
         ]);
+    }
+
+    private function sendAdminNotificationEmail(MailerInterface $mailer): void
+    {
+        $email = (new Email())
+            ->from('notification@aexemple.com')
+            ->to('admin@example.com') // Adresse e-mail de l'administrateur
+            ->subject('Nouvelle réservation créée')
+            ->html('<p>Une nouvelle réservation au poste 3</p>');
+
+        $mailer->send($email);
     }
 
     #[Route('/{id}', name: 'app_poste_three_show', methods: ['GET'])]
@@ -56,7 +71,7 @@ class PosteThreeController extends AbstractController
         $posteThree->setApprouved(true);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_poste_three_edit', ['id' => $posteThree->getId()]);
+        return $this->redirectToRoute('app_admin');
     }
 
     #[Route('/{id}/edit', name: 'app_poste_three_edit', methods: ['GET', 'POST'])]
@@ -68,7 +83,7 @@ class PosteThreeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_poste_three_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('poste_three/edit.html.twig', [

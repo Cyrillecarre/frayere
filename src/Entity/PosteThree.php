@@ -94,7 +94,7 @@ class PosteThree
                     $this->background_color = '#0000FF'; // Bleu
                     break;
                 case $this instanceof PosteThree:
-                    $this->background_color = '#FFA500'; // Orange
+                    $this->background_color = '#FF0000'; // Rouge
                     break;
                 case $this instanceof PosteFour:
                     $this->background_color = '#FF1493'; // Rose

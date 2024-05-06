@@ -125,3 +125,69 @@
     margin-top: -2rem;
     margin-left: -2.5rem;
 }
+
+@media only screen and (max-width: 768px) {
+
+    .titre {
+        text-align: center;
+        font-size: 3rem;
+
+    }
+
+    .tarifs {
+        width: 90%;
+    }
+
+    .hr {
+        width: 80%;
+    }
+
+    .tarifs1 {
+        width: 90%;
+        display: grid;
+        grid-template-columns: 100%;
+        justify-items: center;
+        align-items: center;
+        margin: 0 auto;
+        gap: 2rem;
+    }
+
+    .pecheur {
+        clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+    }
+
+    .prixJour {
+        height: 22rem;
+        clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+    }
+
+    .condition {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .visiteurs {
+        height: 10rem;
+        width: 95%;
+        text-align: center;
+        clip-path: polygon(50% 0, 50% 0, 100% 50%, 50% 100%, 0% 50%);
+    }
+
+    .reglement {
+        width: 80%;
+       
+    }
+
+    .article {
+        width: 100%;
+        padding: 0;
+    }
+
+    .article p {
+        padding-left: 0.5rem;
+    }
+
+    .articleNum {
+        margin-left: -2rem;
+    }
+}
