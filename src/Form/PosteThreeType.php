@@ -36,6 +36,9 @@ class PosteThreeType extends AbstractType
             ])
             ->add('email', TextType::class, [
                 'required' => true,
+                'attr' => [
+                    'placeholder' => 'exemple@email.com',
+                ],
                 'constraints' => [
                     new Email([
                         'message' => 'L\'adresse email "{{ value }}" n\'est pas valide.',
@@ -44,10 +47,13 @@ class PosteThreeType extends AbstractType
             ])
             ->add('phoneNumber', TextType::class, [
                 'required' => true,
+                'attr' => [
+                    'placeholder' => '0612345678',
+                ],
                 'constraints' => [
                     new Regex([
-                        'pattern' => '/^[0-9 +]+$/',
-                        'message' => 'Le numéro de téléphone "{{ value }}" n\'est pas valide.',
+                        'pattern' => '/^\d+$/',
+                        'message' => 'Le format du numéro doit être 0612345678',
                     ]),
                 ],
             ]);

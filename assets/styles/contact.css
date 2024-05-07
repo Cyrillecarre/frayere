@@ -11,7 +11,7 @@
     height: 3rem;
     margin: 1rem auto 1rem auto;
     grid-column: span 2;
-    border-color: rgb(5, 123, 84);
+    border: 1px solid rgb(5, 123, 84);
 }
 
 .titre {
@@ -79,7 +79,7 @@
     height: 3rem;
     margin: 1rem auto 1rem auto;
     grid-column: span 2;
-    border-color: rgb(5, 123, 84);
+    border: 1px solid rgb(5, 123, 84);
 }
 
 @media only screen and (max-width: 768px) {

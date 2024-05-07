@@ -16,12 +16,14 @@
     </div>
     <div>
         {{ form_widget(form.email, {'attr': {'class': 'formEmail'}}) }}
+        {{ form_errors(form.email) }}
     </div>
     <div>
         {{ form_label(form.phoneNumber, 'numéro de tel', {'attr': {'class': 'formPhone'}}) }}
     </div>
     <div>
         {{ form_widget(form.phoneNumber, {'attr': {'class': 'formPhone'}}) }}
+        {{ form_errors(form.phoneNumber) }}
     </div>
     <button class="btnAction">{{ button_label|default('Envoyer') }}</button>
 {{ form_end(form) }}
