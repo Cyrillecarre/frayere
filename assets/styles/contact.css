@@ -82,6 +82,15 @@
     border: 1px solid rgb(5, 123, 84);
 }
 
+.contactD {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    margin: 0 auto;
+}
+
 @media only screen and (max-width: 768px) {
 
     .titre {

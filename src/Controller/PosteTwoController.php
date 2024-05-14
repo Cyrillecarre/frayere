@@ -35,7 +35,13 @@ class PosteTwoController extends AbstractController
             $entityManager->persist($posteTwo);
             $entityManager->flush();
 
-            $this->sendAdminNotificationEmail($mailer);
+            $email = (new Email())
+            ->from('la.frayere@la-frayere.fr')
+            ->to('la.frayere@la-frayere.fr')
+            ->subject('Nouvelle réservation au poste 2')
+            ->html('<p>Une nouvelle réservation au poste 2</p>');
+
+            $mailer->send($email);
 
             return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
         }
@@ -44,17 +50,6 @@ class PosteTwoController extends AbstractController
             'poste_two' => $posteTwo,
             'form' => $form,
         ]);
-    }
-
-    private function sendAdminNotificationEmail(MailerInterface $mailer): void
-    {
-        $email = (new Email())
-            ->from('notification@exemple.com')
-            ->to('admin@example.com') // Adresse e-mail de l'administrateur
-            ->subject('Nouvelle réservation créée')
-            ->html('<p>Une nouvelle réservation au poste 2</p>');
-
-        $mailer->send($email);
     }
 
     #[Route('/{id}', name: 'app_poste_two_show', methods: ['GET'])]

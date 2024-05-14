@@ -31,14 +31,14 @@ class ContactController extends AbstractController
             $message = $data['message'];
             
             $email = (new Email())
-            ->from($adress)
-            ->to('cyrille.carre@gmail.com')
+            ->from('la.frayere@la-frayere.fr')
+            ->to('la.frayere@la-frayere.fr')
             ->subject('Nouveau message de la part de ' . $adress)
             ->text($message);
 
             $mailer->send($email);
             return $this->redirectToRoute('app_validation');
-        }
+        } 
 
         return $this->render('contact/index.html.twig', [
             'controller_name' => 'ContactController',
@@ -46,7 +46,7 @@ class ContactController extends AbstractController
         ]);
     }
 
-    #[Route('/contact', name: 'app_validation')]
+    #[Route('/validation', name: 'app_validation')]
     public function emailEnvoye(): response
     {
         return $this->render('contact/validation.html.twig');

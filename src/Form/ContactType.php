@@ -28,14 +28,13 @@ class ContactType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new Regex([
-                        'pattern' => '/^[a-zA-Z0-9]+$/',
+                        'pattern' => '/^[a-zA-Z0-9\s\'\',.?!À-ÖØ-öø-ÿ-]+$/u',
                         'message' => 'Votre message ne doit contenir que des lettres et des chiffres.'
                     ]),
                 ],
             
             ])
             ->add('envoyer', SubmitType::class)
-
         ;
     }
 
