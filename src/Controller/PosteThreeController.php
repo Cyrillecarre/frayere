@@ -25,13 +25,21 @@ class PosteThreeController extends AbstractController
     }
 
     #[Route('/new', name: 'app_poste_three_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer, PosteThreeRepository $posteThreeRepository): Response
     {
         $posteThree = new PosteThree();
         $form = $this->createForm(PosteThreeType::class, $posteThree);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $start = $posteThree->getStart();
+            $end = $posteThree->getEnd();
+            $overlappingEvents = $posteThreeRepository->findOverlappingEvents($start, $end);
+
+            if (count($overlappingEvents) > 0) {
+                return $this->redirectToRoute('app_poste_three_error');
+            } else {
             $entityManager->persist($posteThree);
             $entityManager->flush();
 
@@ -45,11 +53,18 @@ class PosteThreeController extends AbstractController
 
             return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
         }
+    }
 
         return $this->render('poste_three/new.html.twig', [
             'poste_three' => $posteThree,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/poste/three/error', name: 'app_poste_three_error', methods: ['GET'])]
+    public function error(): Response
+    {
+        return $this->render('poste_three/error.html.twig');
     }
 
     #[Route('/{id}', name: 'app_poste_three_show', methods: ['GET'])]

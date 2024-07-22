@@ -15,6 +15,16 @@ class PosteFourRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, PosteFour::class);
     }
+    public function findOverlappingEvents(\DateTime $start, \DateTime $end): array
+    {
+        return $this->createQueryBuilder('e')
+        ->where('e.start < :end')
+        ->andWhere('e.end > :start')
+        ->setParameter('start', $start)
+        ->setParameter('end', $end)
+        ->getQuery()
+        ->getResult();
+    }
 
     //    /**
     //     * @return PosteFour[] Returns an array of PosteFour objects

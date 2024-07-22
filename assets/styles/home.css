@@ -6,6 +6,41 @@
     margin: 0 auto;
 }
 
+.fc-daygrid-event {
+    position: absolute;
+    top: 0;
+    height: auto;
+    color: white;
+    text-align: center;
+    line-height: 1.2;
+    padding: 2px 5px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.event-start-late::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    background: inherit;
+    clip-path: inset(0 0 0 -50%);
+}
+
+.event-end-early::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 50%;
+    width: 50%;
+    height: 100%;
+    background: inherit;
+    clip-path: inset(0 -50% 0 0);
+}
+
+
 .titre {
     display: flex;
     justify-content: center;

@@ -25,31 +25,46 @@ class PosteFourController extends AbstractController
     }
 
     #[Route('/new', name: 'app_poste_four_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer, PosteFourRepository $posteFourRepository): Response
     {
         $posteFour = new PosteFour();
         $form = $this->createForm(PosteFourType::class, $posteFour);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($posteFour);
-            $entityManager->flush();
 
-            $email = (new Email())
-            ->from('la.frayere@la-frayere.fr')
-            ->to('la.frayere@la-frayere.fr')
-            ->subject('Nouvelle réservation au poste 4')
-            ->html('<p>Une nouvelle réservation au poste 4</p>');
+            $start = $posteFour->getStart();
+            $end = $posteFour->getEnd();
+            $overlappingEvents = $posteFourRepository->findOverlappingEvents($start, $end);
 
-            $mailer->send($email);
+            if (count($overlappingEvents) > 0) {
+                return $this->redirectToRoute('app_poste_four_error');
+            } else {
+                $entityManager->persist($posteFour);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
+                $email = (new Email())
+                    ->from('la.frayere@la-frayere.fr')
+                    ->to('la.frayere@la-frayere.fr')
+                    ->subject('Nouvelle réservation au poste 4')
+                    ->html('<p>Une nouvelle réservation au poste 4</p>');
+
+                $mailer->send($email);
+
+                return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('poste_four/new.html.twig', [
             'poste_four' => $posteFour,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/poste/four/error', name: 'app_poste_four_error', methods: ['GET'])]
+    public function error(): Response
+    {
+        return $this->render('poste_four/error.html.twig');
     }
 
     #[Route('/{id}', name: 'app_poste_four_show', methods: ['GET'])]

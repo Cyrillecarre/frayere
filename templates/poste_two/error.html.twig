@@ -1,0 +1,17 @@
+{# templates/poste_two/error.html.twig #}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/error.css') }}">
+{% endblock %}
+
+{% block title %}Erreur{% endblock %}
+
+{% block body %}
+    <div class="error-container">
+        <div class="error-content">
+            <h1 class="error-title">Oups !</h1>
+            <p class="error-message">Les dates sélectionnées sont déjà réservées. Veuillez choisir d'autres dates.</p>
+            <a href="{{ path('app_poste_two_new') }}" class="btn">Retour à la réservation</a>
+        </div>
+    </div>
+{% endblock %}

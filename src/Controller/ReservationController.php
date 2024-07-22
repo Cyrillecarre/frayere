@@ -9,65 +9,50 @@ use App\Repository\PosteOneRepository;
 use App\Repository\PosteTwoRepository;
 use App\Repository\PosteThreeRepository;
 use App\Repository\PosteFourRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ReservationController extends AbstractController
 {
     #[Route('/reservation', name: 'app_reservation')]
-    public function index(posteOneRepository $posteOne, PosteTwoRepository $posteTwo, PosteThreeRepository $posteThree, PosteFourRepository $posteFour): Response
+    public function index(PosteOneRepository $posteOne, PosteTwoRepository $posteTwo, PosteThreeRepository $posteThree, PosteFourRepository $posteFour): Response
     {
 
         if ($this->getUser()) {
             return $this->redirectToRoute('app_logout');    
         }
-        
-        $events1 = $posteOne->findAll();
         $rdvs = [];
-        foreach($events1 as $event1){
-            $rdvs[] = [
-                'id' => $event1->getId(),
-                'start' => $event1->getStart()->format('Y-m-d H:i:s'),
-                'end' => $event1->getEnd()->format('Y-m-d H:i:s'),
-                'title' => $event1->getTitle(),
-                'backgroundColor' => $event1->getBackgroundColor(),
-            ];
+        $repositories = [$posteOne, $posteTwo, $posteThree, $posteFour];
+
+        foreach ($repositories as $repository) {
+            $events = $repository->findAll();
+            foreach ($events as $event) {
+                $startHour = (int)$event->getStart()->format('H');
+                $endHour = (int)$event->getEnd()->format('H');
+
+                $classNames = [];
+                if ($startHour === 14) {
+                    $classNames[] = 'event-start-late';
+                }
+                if ($endHour === 11) {
+                    $classNames[] = 'event-end-early';
+                }
+
+                $rdvs[] = [
+                    'id' => $event->getId(),
+                    'start' => $event->getStart()->format('Y-m-d H:i:s'),
+                    'end' => $event->getEnd()->format('Y-m-d H:i:s'),
+                    'title' => $event->getTitle(),
+                    'backgroundColor' => $event->getBackgroundColor(),
+                    'classNames' => $classNames,
+                ];
+            }
         }
 
-        $events2 = $posteTwo->findAll();
-        foreach($events2 as $event2){
-            $rdvs[] = [
-                'id' => $event2->getId(),
-                'start' => $event2->getStart()->format('Y-m-d H:i:s'),
-                'end' => $event2->getEnd()->format('Y-m-d H:i:s'),
-                'title' => $event2->getTitle(),
-                'backgroundColor' => $event2->getBackgroundColor(),
-            ];
-        }
-
-        $events3 = $posteThree->findAll();
-        foreach($events3 as $event3){
-            $rdvs[] = [
-                'id' => $event3->getId(),
-                'start' => $event3->getStart()->format('Y-m-d H:i:s'),
-                'end' => $event3->getEnd()->format('Y-m-d H:i:s'),
-                'title' => $event3->getTitle(),
-                'backgroundColor' => $event3->getBackgroundColor(),
-            ];
-        }
-
-        $events4 = $posteFour->findAll();
-        foreach($events4 as $event4){
-            $rdvs[] = [
-                'id' => $event4->getId(),
-                'start' => $event4->getStart()->format('Y-m-d H:i:s'),
-                'end' => $event4->getEnd()->format('Y-m-d H:i:s'),
-                'title' => $event4->getTitle(),
-                'backgroundColor' => $event4->getBackgroundColor(),
-            ];
-        }
         $data = json_encode($rdvs);
 
         return $this->render('reservation/index.html.twig', [
             'data' => $data,
             ]);
     }
+    
 }

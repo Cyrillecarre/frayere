@@ -25,31 +25,46 @@ class PosteOneController extends AbstractController
     }
 
     #[Route('/new', name: 'app_poste_one_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer, PosteOneRepository $posteOneRepository): Response
     {
         $posteOne = new PosteOne();
         $form = $this->createForm(PosteOneType::class, $posteOne);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($posteOne);
-            $entityManager->flush();
 
-            $email = (new Email())
-            ->from('la.frayere@la-frayere.fr')
-            ->to('la.frayere@la-frayere.fr')
-            ->subject('Nouvelle réservation au poste 1')
-            ->html('<p>Une nouvelle réservation au poste 1</p>');
+            $start = $posteOne->getStart();
+            $end = $posteOne->getEnd();
+            $overlappingEvents = $posteOneRepository->findOverlappingEvents($start, $end);
+            
+            if (count($overlappingEvents) > 0) {
+                return $this->redirectToRoute('app_poste_one_error');
+            } else {
+                $entityManager->persist($posteOne);
+                $entityManager->flush();
 
-            $mailer->send($email);
+                $email = (new Email())
+                    ->from('la.frayere@la-frayere.fr')
+                    ->to('la.frayere@la-frayere.fr')
+                    ->subject('Nouvelle réservation au poste 1')
+                    ->html('<p>Une nouvelle réservation au poste 1</p>');
 
-            return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
+                $mailer->send($email);
+
+                return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('poste_one/new.html.twig', [
             'poste_one' => $posteOne,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/poste/one/error', name: 'app_poste_one_error', methods: ['GET'])]
+    public function error(): Response
+    {
+        return $this->render('poste_one/error.html.twig');
     }
 
     #[Route('/{id}', name: 'app_poste_one_show', methods: ['GET'])]
@@ -98,3 +113,4 @@ class PosteOneController extends AbstractController
         return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
     }
 }
+
