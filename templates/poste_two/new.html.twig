@@ -9,13 +9,6 @@
 {% block body %}
     <hr class="hr">
     <h1 class="titre">Ajouter une réservation Poste 2</h1>
-
-    {% for message in app.flashes('error') %}
-        <div class="alert alert-danger">
-            {{ message }}
-        </div>
-    {% endfor %}
-
     {{ include('poste_two/_form.html.twig') }}
     <hr class="hr">
 

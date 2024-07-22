@@ -35,6 +35,13 @@ class PosteOneController extends AbstractController
 
             $start = $posteOne->getStart();
             $end = $posteOne->getEnd();
+
+            $duration = ($end->getTimestamp() - $start->getTimestamp()) / (60 * 60 * 24);
+
+            if ($duration < 1.7) {
+                return $this->redirectToRoute('app_poste_one_error'); 
+            }
+
             $overlappingEvents = $posteOneRepository->findOverlappingEvents($start, $end);
             
             if (count($overlappingEvents) > 0) {

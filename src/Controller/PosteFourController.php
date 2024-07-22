@@ -35,6 +35,13 @@ class PosteFourController extends AbstractController
 
             $start = $posteFour->getStart();
             $end = $posteFour->getEnd();
+
+            $duration = ($end->getTimestamp() - $start->getTimestamp()) / (60 * 60 * 24);
+
+            if ($duration < 1.7) {
+                return $this->redirectToRoute('app_poste_four_error'); 
+            }
+
             $overlappingEvents = $posteFourRepository->findOverlappingEvents($start, $end);
 
             if (count($overlappingEvents) > 0) {

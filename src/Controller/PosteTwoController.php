@@ -35,6 +35,13 @@ class PosteTwoController extends AbstractController
 
             $start = $posteTwo->getStart();
             $end = $posteTwo->getEnd();
+
+            $duration = ($end->getTimestamp() - $start->getTimestamp()) / (60 * 60 * 24);
+
+            if ($duration < 1.7) {
+                return $this->redirectToRoute('app_poste_two_error'); 
+            }
+
             $overlappingEvents = $posteTwoRepository->findOverlappingEvents($start, $end);
             
             if (count($overlappingEvents) > 0) {

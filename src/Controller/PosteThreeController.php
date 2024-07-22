@@ -35,6 +35,13 @@ class PosteThreeController extends AbstractController
 
             $start = $posteThree->getStart();
             $end = $posteThree->getEnd();
+
+            $duration = ($end->getTimestamp() - $start->getTimestamp()) / (60 * 60 * 24);
+
+            if ($duration < 1.7) {
+                return $this->redirectToRoute('app_poste_three_error'); 
+            }
+
             $overlappingEvents = $posteThreeRepository->findOverlappingEvents($start, $end);
 
             if (count($overlappingEvents) > 0) {
