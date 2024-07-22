@@ -154,8 +154,14 @@
 
 .etang {
     display: flex;
+    justify-content: center;
     margin: 0 auto;
-    width: 100vh;
+    width: 100%;
+    height: auto;
+}
+
+.etang img {
+    width: 100%;
     height: auto;
 }
 

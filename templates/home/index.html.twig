@@ -2,8 +2,38 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/home.css') }}">
+    <style>
+    .hidden {
+            opacity: 0;
+            transform: translateY(200px);
+            transition: opacity 0.7s ease-out;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 {% endblock %}
 {% block javascripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const elements = document.querySelectorAll(".icon, .etang, .map");
+
+        function checkVisibility() {
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    element.classList.add("visible");
+                }
+            });
+        }
+
+        window.addEventListener("scroll", checkVisibility);
+        window.addEventListener("resize", checkVisibility);
+        checkVisibility(); // Initial check
+    });
+    </script>
 {% endblock %}
 
 {% block title %}Accueil{% endblock %}
@@ -13,39 +43,39 @@
     <hr class="hr">
     <h1 class="titre">Quelques infos</h1>
     <div class="iconDescription">
-        <div class="icon">
+        <div class="icon hidden">
             <i class="fa-solid fa-fish-fins icon1" style="color:#FFA500;"></i>
             <p>Carpes, Amours Blanc, Koï</p>
         </div>
-        <div class="icon">
+        <div class="icon hidden">
             <i class="fa-regular fa-map icon1" style="color:blue"></i>
             <p>Etang de 4 hectares</p>
         </div>
-        <div class="icon">
+        <div class="icon hidden">
             <i class="fa-solid fa-square-rss icon1" style="color:red"></i>
             <p>Couverture réseau</p>
         </div>
     </div>
     <div class="iconDescription">
-        <div class="icon">
+        <div class="icon hidden">
             <i class="fa-solid fa-shoe-prints icon1" style="color:#F5F5DC"></i>
             <p>Site cloturé</p>
         </div>
-        <div class="icon">
+        <div class="icon hidden">
             <i class="fa-solid fa-toilet-paper icon1" style="color:#8B4513"></i>
             <p>Sanitaires</p>
         </div>
-        <div class="icon">
+        <div class="icon hidden">
             <i class="fa-solid fa-tree icon1" style="color:green"></i>
             <p>Environnement sauvage</p>
         </div>
     </div>
     <hr class="hr">
-    <div class="etang">
+    <div class="etang hidden">
         <img src="{{ asset('images/environnement.jpg') }}" alt="etang" class="etang">
         </div>
     <hr class="hr">
-    <div id="map" class="map">
+    <div id="map" class="map hidden">
                 api map
     </div> 
     <script src="{{ asset('js/home.js') }}"></script>

@@ -3,6 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="author" content="Cyrille CARRE">
+    <meta name="description" content="La Frayère - Étang de pêche à la carpe à Pouzay. Profitez de notre étang bien équipé pour des sessions de pêche mémorables. 
+    Réservez dès maintenant et découvrez les meilleurs spots de pêche à la carpe.">
+    <meta name="keywords" content=" Étang de pêche à la carpe, Pêche à la carpe, Carpodrome, Étang de pêche privé, 
+    Location étang de pêche, Étang de pêche en France, Pêche de nuit carpe, Enduro carpe, Séjour pêche à la carpe, 
+    Techniques de pêche à la carpe, Appâts pour carpe, Matériel de pêche à la carpe, Réservation étang pêche carpe, 
+    Étang de pêche pour débutants, Étang de pêche équipé, Meilleurs spots de pêche à la carpe, Pêche sportive carpe,
+    Hébergement pêche carpe, Compétition de pêche à la carpe, Étang carpe record, Conseils pêche carpe, 
+    Expérience pêche à la carpe, Étang de pêche touristique, Carpe trophée, Pêche à la carpe en famille, 
+    Journée de pêche à la carpe, Pêche à la carpe en étang, Tarifs pêche carpe, Guide de pêche à la carpe, 
+    Sécurité pêche carpe, pêche 37, pêche 86">
+    <meta property="og:image:width" content="100%">
+    <meta property="og:image:height" content="100%">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://la-frayere.fr">
+    <meta property="og:title" content="La Frayère - Etang de pêche de la carpe">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('styles/header.css') }}">
     <script src="https://kit.fontawesome.com/6db39e2efc.js" crossorigin="anonymous"></script>
@@ -16,7 +33,7 @@
             <img class="logo" src="{{ asset('images/logoFrayere.jpg') }}" alt="logo">
         </header>
         <div class="navBarre">
-            <nav class="nav">
+            <nav>
                 <ul class="navListe">
                     <li class="navList"><a href="{{ path('app_home') }}">Accueil</a></li>
                     <li class="navList"><a href="{{ path('app_reservation') }}">Réservation</a></li>

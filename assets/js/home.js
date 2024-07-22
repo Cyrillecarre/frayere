@@ -7,15 +7,3 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 L.marker([47.0778847, 0.5099637]).addTo(map)
     .bindPopup('La Frayère')
     .openPopup();
-
-    function burger(){
-        const burgerMenu = document.getElementById('burger-menu');
-        const navList = document.querySelectorAll('.navListe');
-          
-          burgerMenu.addEventListener('click', function() {
-              navList.forEach(item => {
-                  item.classList.toggle('show');
-              });
-            });
-          }
-          burger();
