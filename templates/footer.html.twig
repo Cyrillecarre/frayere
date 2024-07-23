@@ -1,6 +1,9 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/footer.css') }}">
 {% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/footer.js') }}"></script>
+{% endblock %}
 
 {% block body %}
     <div class="footer">
@@ -14,9 +17,14 @@
             <a href="https://cyrille-carre.fr" target="_blank"></a>
         </div>
         <div class="facebook">
-        <p>Suivez-nous sur Facebook</p>
-        <a href="https://www.facebook.com/profile.php?id=100063643567122&locale=fr_FR" target="_blank"><i class="fa-brands fa-facebook" style="color: #74C0FC;"></i></a>
+            <p>Suivez-nous sur Facebook</p>
+            <a href="https://www.facebook.com/profile.php?id=100063643567122&locale=fr_FR" target="_blank"><i class="fa-brands fa-facebook" style="color: #74C0FC;"></i></a>
+            <button class="btnMention" id="mentionsLegalesBtn">Mentions légales</button>
+        </div> 
+    <div class="popup" id="mentionsLegalesPopup">
+        <div class="popup-content">
+            {% include 'mentions/index.html.twig' %}
         </div>
     </div>
-
+    </div>
 {% endblock %}

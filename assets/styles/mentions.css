@@ -1,0 +1,43 @@
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    width: 50%;
+    height: 50%;
+    color: #000;
+    overflow: auto;
+}
+
+.popup-content {
+    text-align: center;
+    color: #000;
+}
+
+#closePopupBtn {
+    margin-top: 10px;
+}
+
+.btnMention {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 8rem;
+    height: 1.5rem;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .btnMention {
+        display: flex;
+        justify-content: center;
+        width: 90%;
+        height: 100%;
+    }
+
+}
