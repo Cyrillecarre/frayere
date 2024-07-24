@@ -11,6 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
+use function PHPSTORM_META\map;
 
 class PosteOneType extends AbstractType
 {
@@ -29,6 +32,41 @@ class PosteOneType extends AbstractType
                 'date_widget' => 'single_text',
                 'time_widget' => 'text',
                 'data' => (new \DateTime('today 11:00')),
+            ])
+            ->add('numberOfFishers', ChoiceType::class, [
+                'label' => 'Nombre de pêcheurs',
+                'choices' => [
+                    '1' => 1,
+                    '2' => 2,
+                ],
+                'data' => 2,
+                'mapped' => false,
+            ])
+            ->add('pellets', ChoiceType::class, [
+                'label' => 'Nombre de sac de pellets',
+                'choices' => [
+                    '0' => 0,
+                    '1' => 1,
+                    '2' => 2,
+                    '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                ],
+                'data' => 0,
+                'mapped' => false,
+            ])
+            ->add('graines', ChoiceType::class, [
+                'label' => 'Nombre de sac de graines',
+                'choices' => [
+                    '0' => 0,
+                    '1' => 1,
+                    '2' => 2,
+                    '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                ],
+                'data' => 0,
+                'mapped' => false,
             ])
             
             ->add('background_color', HiddenType::class, [
@@ -59,7 +97,7 @@ class PosteOneType extends AbstractType
                         'message' => 'Le format du numéro doit être 0612345678',
                     ]),
                 ],
-            ]);
+            ])
         ;
     }
 

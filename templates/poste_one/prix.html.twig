@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New PosteOne{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/poste.css') }}">
+{% endblock %}
+
+{% block body %}
+    <hr class="hr">
+    <h1 class="titre">réservation Poste 1</h1>
+
+    {% if totalPrice is not null %}
+        <div>
+            <p>Nombre de pêcheurs : {{ numFishers }}</p>
+            <p>Date d'arrivée : {{ start }}h</p>
+            <p>Date de départ : {{ end }}h</p>
+            <p>Nombre de nuits : {{ numNights }}</p>
+            <p>Pellets : {{ pellets }}</p>
+            <p>Graines : {{ graines }}</p>
+            <p>Montant total : {{ totalPrice }} EUR</p>
+        </div>
+    {% endif %}
+
+    <hr class="hr">
+    <a href="{{ path('app_reservation') }}" class="btnAction">Retour</a>
+{% endblock %}

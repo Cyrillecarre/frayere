@@ -7,14 +7,68 @@
 {% endblock %}
 
 {% block body %}
-
     <hr class="hr">
     <h1 class="titre">Ajouter une réservation Poste 1</h1>
 
-    {{ include('poste_one/_form.html.twig') }}
-    <hr class="hr">
+    {{ form_start(form, {'attr': {'class': 'form'}}) }}
+        <div>
+            {{ form_label(form.start, 'Date d\'arrivée :', {'attr': {'class': 'formStart'}}) }}
+        </div>
+        <div>
+            {{ form_widget(form.start, {'attr': {'class': 'formStart'}}) }}
+        </div>
+        <div>
+            {{ form_label(form.end, 'Date de départ :', {'attr': {'class': 'formEnd'}}) }}
+        </div>
+        <div>
+            {{ form_widget(form.end, {'attr': {'class': 'formEnd'}}) }}
+        </div>
+        <div>
+            {{ form_label(form.numberOfFishers, 'Nombre de pêcheurs', {'attr': {'class': 'numberForm'}}) }}
+        </div>
+        <div>
+            {{ form_widget(form.numberOfFishers, {'attr': {'class': 'numberForm'}}) }}
+        </div>
+        <div class="hrFormGrid">
+            <hr class="hrForm">
+        </div>
+        <div>
+            {{ form_label(form.email, 'Email', {'attr': {'class': 'formEmail'}}) }}
+        </div>
+        <div>
+            {{ form_widget(form.email, {'attr': {'class': 'formEmail'}}) }}
+            {{ form_errors(form.email) }}
+        </div>
+        <div>
+            {{ form_label(form.phoneNumber, 'Numéro de tel', {'attr': {'class': 'formPhone'}}) }}
+        </div>
+        <div>
+            {{ form_widget(form.phoneNumber, {'attr': {'class': 'formPhone'}}) }}
+            {{ form_errors(form.phoneNumber) }}
+        </div>
+        
+        <div class="hrFormGrid">
+            <hr class="hrForm">
+            <p class="hrText">Avez-vous pensé à l'amorçage?</p>
+        </div>
+        <div>
+            {{ form_label(form.pellets, 'Sac de pellets') }}
+        </div>
+        <div>
+            {{ form_widget(form.pellets, {'attr': {'class': 'numberForm'}}) }}
+        </div>
+        <div>
+            {{ form_label(form.graines, 'Sac de graines') }}
+        </div>
+        <div>
+            {{ form_widget(form.graines, {'attr': {'class': 'numberForm'}}) }}
+        </div>
+        <div class="hrFormGrid">
+            <hr class="hrForm">
+        </div>
+        <button class="btnAction">{{ button_label|default('Combien ça coûte?') }}</button>
+    {{ form_end(form) }}
 
+    <hr class="hr">
     <a href="{{ path('app_reservation') }}" class="btnAction">Retour</a>
-   
 {% endblock %}
- 
