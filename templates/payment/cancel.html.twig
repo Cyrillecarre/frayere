@@ -1,0 +1,15 @@
+{# templates/payment/cancel.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement annulé{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/poste.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="formPrixPayment">
+    <h1>Paiement annulé</h1>
+    <p>Votre paiement a été annulé. Vous pouvez réessayer de payer à tout moment.</p>
+    <a href="{{ path('app_reservation') }}">Retour à la page de réservation</a>
+    </div>
+{% endblock %}

@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use App\Service\PricingService;
 
 #[Route('/poste/four')]
 class PosteFourController extends AbstractController
@@ -24,12 +26,21 @@ class PosteFourController extends AbstractController
         ]);
     }
 
+    private $pricingService;
+
+    public function __construct(PricingService $pricingService)
+    {
+        $this->pricingService = $pricingService;
+    }
+
     #[Route('/new', name: 'app_poste_four_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer, PosteFourRepository $posteFourRepository): Response
     {
         $posteFour = new PosteFour();
         $form = $this->createForm(PosteFourType::class, $posteFour);
         $form->handleRequest($request);
+
+        $totalPrice = null;
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -40,31 +51,78 @@ class PosteFourController extends AbstractController
 
             if ($duration < 1.7) {
                 return $this->redirectToRoute('app_poste_four_error'); 
+            } elseif ($duration <= 2.7) {
+                $numNights = 2;
+            } elseif ($duration <= 3.7) {
+                $numNights = 3;
+            } elseif ($duration <= 4.7) {
+                $numNights = 4;
+            } elseif ($duration <= 5.7) {
+                $numNights = 5;
+            } elseif ($duration <= 6.7) {
+                $numNights = 6;
+            } elseif ($duration <= 7.7) {
+                $numNights = 7;
+            } else {
+                return $this->redirectToRoute('app_poste_four_error');
             }
-
             $overlappingEvents = $posteFourRepository->findOverlappingEvents($start, $end);
 
             if (count($overlappingEvents) > 0) {
                 return $this->redirectToRoute('app_poste_four_error');
             } else {
-                $entityManager->persist($posteFour);
-                $entityManager->flush();
+                $numFishers = $form->get('numberOfFishers')->getData();
+                $pellets = $form->get('pellets')->getData();
+                $graines = $form->get('graines')->getData();
+                
+                try {
+                    $totalPrice = $this->pricingService->calculatePrice($numNights, $numFishers, [
+                        'pellets' => $pellets,
+                        'graines' => $graines
+                    ]);
+                } catch (\InvalidArgumentException $e) {
+                    // Gestion de l'erreur si les prix ne sont pas définis
+                    return $this->redirectToRoute('app_poste_one_error');
+                }
 
-                $email = (new Email())
-                    ->from('la.frayere@la-frayere.fr')
-                    ->to('la.frayere@la-frayere.fr')
-                    ->subject('Nouvelle réservation au poste 4')
-                    ->html('<p>Une nouvelle réservation au poste 4</p>');
-
-                $mailer->send($email);
-
-                return $this->redirectToRoute('app_reservation', [], Response::HTTP_SEE_OTHER);
+                
+                return $this->redirectToRoute('app_poste_four_prix', [
+                    'totalPrice' => $totalPrice,
+                    'start' => $start->format('d-m \à H'),
+                    'end' => $end->format('d-m \à H'),
+                    'numNights' => $numNights,
+                    'numFishers' => $numFishers,
+                    'pellets' => $pellets,
+                    'graines' => $graines
+                ]);
             }
         }
 
         return $this->render('poste_four/new.html.twig', [
             'poste_four' => $posteFour,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/prix', name: 'app_poste_four_prix', methods: ['GET'])]
+    public function summary(Request $request): Response
+    {
+        $totalPrice = $request->query->get('totalPrice');
+        $numNights = $request->query->get('numNights');
+        $numFishers = $request->query->get('numFishers');
+        $pellets = $request->query->get('pellets');
+        $graines = $request->query->get('graines');
+        $start = $request->query->get('start');
+        $end = $request->query->get('end');
+
+        return $this->render('poste_four/prix.html.twig', [
+            'totalPrice' => $totalPrice,
+            'numNights' => $numNights,
+            'numFishers' => $numFishers,
+            'pellets' => $pellets,
+            'graines' => $graines,
+            'start' => $start,
+            'end' => $end
         ]);
     }
 

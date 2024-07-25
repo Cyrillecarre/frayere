@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class PosteThreeType extends AbstractType
 {
@@ -30,7 +31,41 @@ class PosteThreeType extends AbstractType
                 'time_widget' => 'text',
                 'data' => (new \DateTime('today 11:00')),
             ])
-            
+            ->add('numberOfFishers', ChoiceType::class, [
+                'label' => 'Nombre de pêcheurs',
+                'choices' => [
+                    '1' => 1,
+                    '2' => 2,
+                ],
+                'data' => 2,
+                'mapped' => false,
+            ])
+            ->add('pellets', ChoiceType::class, [
+                'label' => 'Nombre de sac de pellets',
+                'choices' => [
+                    '0' => 0,
+                    '1' => 1,
+                    '2' => 2,
+                    '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                ],
+                'data' => 0,
+                'mapped' => false,
+            ])
+            ->add('graines', ChoiceType::class, [
+                'label' => 'Nombre de sac de graines',
+                'choices' => [
+                    '0' => 0,
+                    '1' => 1,
+                    '2' => 2,
+                    '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                ],
+                'data' => 0,
+                'mapped' => false,
+            ])
             ->add('background_color', HiddenType::class, [
                 'data' => '#FF7F00',
             ])

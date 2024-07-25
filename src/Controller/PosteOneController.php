@@ -89,8 +89,8 @@ class PosteOneController extends AbstractController
                 
                 return $this->redirectToRoute('app_poste_one_prix', [
                     'totalPrice' => $totalPrice,
-                    'start' => $start->format('d-m H'),
-                    'end' => $end->format('d-m H'),
+                    'start' => $start->format('d-m \à H'),
+                    'end' => $end->format('d-m \à H'),
                     'numNights' => $numNights,
                     'numFishers' => $numFishers,
                     'pellets' => $pellets,
@@ -108,6 +108,7 @@ class PosteOneController extends AbstractController
     #[Route('/prix', name: 'app_poste_one_prix', methods: ['GET'])]
     public function summary(Request $request): Response
     {
+        $stripePublicKey = $this->getParameter('stripe_public_key');
         $totalPrice = $request->query->get('totalPrice');
         $numNights = $request->query->get('numNights');
         $numFishers = $request->query->get('numFishers');
@@ -123,7 +124,8 @@ class PosteOneController extends AbstractController
             'pellets' => $pellets,
             'graines' => $graines,
             'start' => $start,
-            'end' => $end
+            'end' => $end,
+            'stripe_public_key' => $stripePublicKey,
         ]);
     }
 

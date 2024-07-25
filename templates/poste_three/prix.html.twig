@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New PosteOne{% endblock %}
+{% block title %}New PosteThree{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/poste.css') }}">
@@ -47,7 +47,7 @@
 
 {% block body %}
     <hr class="hr">
-    <h1 class="titre">réservation Poste 1</h1>
+    <h1 class="titre">réservation Poste 3</h1>
 
     {% if totalPrice is not null %}
         <div class="formPrix">
@@ -67,5 +67,5 @@
     {% endif %}
 
     <hr class="hr">
-    <a href="{{ path('app_poste_one_new') }}" class="btnAction">Retour</a>
+    <a href="{{ path('app_poste_three_new') }}" class="btnAction">Retour</a>
 {% endblock %}
