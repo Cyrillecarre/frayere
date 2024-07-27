@@ -117,7 +117,20 @@ class PosteTwoController extends AbstractController
         $start = $request->query->get('start');
         $end = $request->query->get('end');
 
+        $session = $request->getSession();
+        $session->set('reservation_data',[
+                'title' => 'poste_two',
+                'totalPrice' => $totalPrice,
+                'numNights' => $numNights,
+                'numFishers' => $numFishers,
+                'pellets' => $pellets,
+                'graines' => $graines,
+                'start' => $start,
+                'end' => $end,
+        ]);
+
         return $this->render('poste_two/prix.html.twig', [
+            'title' => 'poste_two',
             'totalPrice' => $totalPrice,
             'numNights' => $numNights,
             'numFishers' => $numFishers,

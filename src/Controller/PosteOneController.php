@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Service\PricingService;
 
@@ -72,6 +71,8 @@ class PosteOneController extends AbstractController
             if (count($overlappingEvents) > 0) {
                 return $this->redirectToRoute('app_poste_one_error');
             } else {
+                $entityManager->persist($posteOne);
+                $entityManager->flush();
                 $numFishers = $form->get('numberOfFishers')->getData();
                 $pellets = $form->get('pellets')->getData();
                 $graines = $form->get('graines')->getData();
@@ -82,19 +83,17 @@ class PosteOneController extends AbstractController
                         'graines' => $graines
                     ]);
                 } catch (\InvalidArgumentException $e) {
-                    // Gestion de l'erreur si les prix ne sont pas définis
                     return $this->redirectToRoute('app_poste_one_error');
                 }
 
                 
                 return $this->redirectToRoute('app_poste_one_prix', [
                     'totalPrice' => $totalPrice,
-                    'start' => $start->format('d-m \à H'),
-                    'end' => $end->format('d-m \à H'),
                     'numNights' => $numNights,
                     'numFishers' => $numFishers,
                     'pellets' => $pellets,
-                    'graines' => $graines
+                    'graines' => $graines,
+                    'poste_id' => $posteOne->getId(),
                 ]);
             }
         }
@@ -114,8 +113,8 @@ class PosteOneController extends AbstractController
         $numFishers = $request->query->get('numFishers');
         $pellets = $request->query->get('pellets');
         $graines = $request->query->get('graines');
-        $start = $request->query->get('start');
-        $end = $request->query->get('end');
+        $post = $request->query->get('poste_one');
+
 
         return $this->render('poste_one/prix.html.twig', [
             'totalPrice' => $totalPrice,
@@ -123,9 +122,8 @@ class PosteOneController extends AbstractController
             'numFishers' => $numFishers,
             'pellets' => $pellets,
             'graines' => $graines,
-            'start' => $start,
-            'end' => $end,
             'stripe_public_key' => $stripePublicKey,
+            'poste_one' => $post,
         ]);
     }
 
@@ -180,32 +178,5 @@ class PosteOneController extends AbstractController
 
         return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
     }
-
-    private function createStripeCheckoutSession(int $amount): \Stripe\Checkout\Session
-    {
-    \Stripe\Stripe::setApiKey('sk_test_...'); // Remplacez par votre clé API secrète
-
-    $session = \Stripe\Checkout\Session::create([
-        'payment_method_types' => ['card'],
-        'line_items' => [
-            [
-                'price_data' => [
-                    'currency' => 'eur',
-                    'product_data' => [
-                        'name' => 'Reservation',
-                    ],
-                    'unit_amount' => $amount, // Montant en centimes
-                ],
-                'quantity' => 1,
-            ],
-        ],
-        'mode' => 'payment',
-        'success_url' => $this->generateUrl('app_success', [], UrlGeneratorInterface::ABSOLUTE_URL),
-        'cancel_url' => $this->generateUrl('app_cancel', [], UrlGeneratorInterface::ABSOLUTE_URL),
-    ]);
-
-    return $session;
-    }
-
 }
 

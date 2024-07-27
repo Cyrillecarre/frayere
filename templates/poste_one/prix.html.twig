@@ -11,12 +11,27 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var stripe = Stripe('{{ stripe_public_key }}');
+
             var checkoutButton = document.getElementById('checkout-button');
+            var depositButton = document.getElementById('deposit-button');
 
             checkoutButton.addEventListener('click', function (e) {
                 e.preventDefault();
+                createCheckoutSession(false); // Paiement total
+            });
 
+            depositButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                createCheckoutSession(true); // Paiement d'acompte
+            });
+
+            function createCheckoutSession(isDeposit) {
                 var totalPrice = document.querySelector('input[name="totalPrice"]').value;
+                var postId = document.querySelector('input[name="poste_id"]').value;
+                var numFishers = document.querySelector('input[name="numFishers"]').value;
+                var numNights = document.querySelector('input[name="numNights"]').value;
+                var pellets = document.querySelector('input[name="pellets"]').value;
+                var graines = document.querySelector('input[name="graines"]').value;
 
                 fetch("{{ path('app_payment_create') }}", {
                     method: 'POST',
@@ -25,22 +40,32 @@
                         'X-CSRF-TOKEN': '{{ csrf_token('payment') }}'
                     },
                     body: JSON.stringify({
-                        totalPrice: totalPrice
+                        totalPrice: totalPrice,
+                        isDeposit: isDeposit,
+                        postId: postId,
+                        numFishers: numFishers,
+                        numNights: numNights,
+                        pellets: pellets,
+                        graines: graines
                     })
                 })
                 .then(response => response.json())
                 .then(session => {
-                    return stripe.redirectToCheckout({ sessionId: session.id });
+                    if (session.error) {
+                        alert(session.error);
+                    } else {
+                        return stripe.redirectToCheckout({ sessionId: session.id });
+                    }
                 })
                 .then(result => {
-                    if (result.error) {
+                    if (result && result.error) {
                         alert(result.error.message);
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 });
-            });
+            }
         });
     </script>
 {% endblock %}
@@ -52,16 +77,24 @@
     {% if totalPrice is not null %}
         <div class="formPrix">
             <p>Nombre de pêcheurs : {{ numFishers }}</p>
-            <p>Date d'arrivée : {{ start }}h</p>
-            <p>Date de départ : {{ end }}h</p>
             <p>Nombre de nuits : {{ numNights }}</p>
             <p>Pellets : {{ pellets }}</p>
             <p>Graines : {{ graines }}</p>
             <p>Montant total : {{ totalPrice }} EUR</p>
         </div>
-        <form action="{{ path('app_payment_create') }}" method="POST">
+        <form action="{{ path('app_payment_create') }}" method="POST" class="formPrixButton">
             <input type="hidden" name="totalPrice" value="{{ totalPrice }}">
-            <button type="submit" id="checkout-button" class="btnAction">Payer</button>
+            <input type="hidden" name="poste_id" value="poste_one">
+            <input type="hidden" name="numFishers" value="{{ numFishers }}">
+            <input type="hidden" name="numNights" value="{{ numNights }}">
+            <input type="hidden" name="pellets" value="{{ pellets }}">
+            <input type="hidden" name="graines" value="{{ graines }}">
+            <div>
+                <button type="submit" id="checkout-button" class="btnAction">Régler la totalité</button>
+            </div>
+            <div>
+                <button type="submit" id="deposit-button" class="btnAction" data-is-deposit="true">Régler un acompte</button>
+            </div>
             <p class="textPrix">Vous allez être redirigé vers la page de paiement sécurisé</p>
         </form>
     {% endif %}

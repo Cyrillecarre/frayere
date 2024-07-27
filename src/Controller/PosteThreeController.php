@@ -108,6 +108,7 @@ class PosteThreeController extends AbstractController
     #[Route('/prix', name: 'app_poste_three_prix', methods: ['GET'])]
     public function summary(Request $request): Response
     {
+        $stripePublicKey = $this->getParameter('stripe_public_key');
         $totalPrice = $request->query->get('totalPrice');
         $numNights = $request->query->get('numNights');
         $numFishers = $request->query->get('numFishers');
@@ -123,7 +124,8 @@ class PosteThreeController extends AbstractController
             'pellets' => $pellets,
             'graines' => $graines,
             'start' => $start,
-            'end' => $end
+            'end' => $end,
+            'stripe_public_key' => $stripePublicKey,
         ]);
     }
 
