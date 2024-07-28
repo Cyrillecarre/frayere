@@ -72,6 +72,8 @@ class PosteTwoController extends AbstractController
             if (count($overlappingEvents) > 0) {
                 return $this->redirectToRoute('app_poste_two_error');
             } else {
+                $entityManager->persist($posteTwo);
+                $entityManager->flush();
                 $numFishers = $form->get('numberOfFishers')->getData();
                 $pellets = $form->get('pellets')->getData();
                 $graines = $form->get('graines')->getData();
@@ -89,12 +91,12 @@ class PosteTwoController extends AbstractController
                 
                 return $this->redirectToRoute('app_poste_two_prix', [
                     'totalPrice' => $totalPrice,
-                    'start' => $start->format('d-m \à H'),
-                    'end' => $end->format('d-m \à H'),
                     'numNights' => $numNights,
                     'numFishers' => $numFishers,
                     'pellets' => $pellets,
-                    'graines' => $graines
+                    'graines' => $graines,
+                    'poste_id' => $posteTwo->getId(),
+                    'poste_type' => 'two',
                 ]);
             }
         }
@@ -114,31 +116,18 @@ class PosteTwoController extends AbstractController
         $numFishers = $request->query->get('numFishers');
         $pellets = $request->query->get('pellets');
         $graines = $request->query->get('graines');
-        $start = $request->query->get('start');
-        $end = $request->query->get('end');
-
-        $session = $request->getSession();
-        $session->set('reservation_data',[
-                'title' => 'poste_two',
-                'totalPrice' => $totalPrice,
-                'numNights' => $numNights,
-                'numFishers' => $numFishers,
-                'pellets' => $pellets,
-                'graines' => $graines,
-                'start' => $start,
-                'end' => $end,
-        ]);
+        $posteId = $request->query->get('poste_id');
+        $posteType = $request->query->get('poste_type');
 
         return $this->render('poste_two/prix.html.twig', [
-            'title' => 'poste_two',
             'totalPrice' => $totalPrice,
             'numNights' => $numNights,
             'numFishers' => $numFishers,
             'pellets' => $pellets,
             'graines' => $graines,
-            'start' => $start,
-            'end' => $end,
             'stripe_public_key' => $stripePublicKey,
+            'poste_id' => $posteId,
+            'poste_type' => $posteType,
         ]);
     }
 

@@ -1,0 +1,15 @@
+{% block title %}Paiement réussi{% endblock %}
+
+{% block body %}
+    <div class="formPrixPayment">
+    <h1>Nouvelle réservation</h1>
+    <p>La réservation a été confirmée avec les détails suivants :</p>
+    <ul>
+        <li>Poste: {{ posteType }}</li>
+        <li>Prix total: {{ totalPrice }} EUR</li>
+        <li>Acompte: {{ is_deposit }} EUR</li>
+        <li>Pellets: {{ pellets }}</li>
+        <li>Graines: {{ graines }}</li>
+    </ul>
+    </div>
+{% endblock %}

@@ -115,6 +115,7 @@
 .formPrixPayment {
     display: grid;
     grid-template-columns: 1fr;
+    list-style: none;
     align-items: center;
     text-align: center;
     padding-top: 1rem;

@@ -27,6 +27,12 @@
 
             function createCheckoutSession(isDeposit) {
                 var totalPrice = document.querySelector('input[name="totalPrice"]').value;
+                var posteId = document.querySelector('input[name="poste_id"]').value;
+                var numFishers = document.querySelector('input[name="numFishers"]').value;
+                var numNights = document.querySelector('input[name="numNights"]').value;
+                var pellets = document.querySelector('input[name="pellets"]').value;
+                var graines = document.querySelector('input[name="graines"]').value;
+                var posteType = document.querySelector('input[name="poste_type"]').value;
 
                 fetch("{{ path('app_payment_create') }}", {
                     method: 'POST',
@@ -36,7 +42,13 @@
                     },
                     body: JSON.stringify({
                         totalPrice: totalPrice,
-                        isDeposit: isDeposit
+                        isDeposit: isDeposit,
+                        posteId: posteId,
+                        numFishers: numFishers,
+                        numNights: numNights,
+                        pellets: pellets,
+                        graines: graines,
+                        posteType: posteType
                     })
                 })
                 .then(response => response.json())
@@ -67,8 +79,6 @@
     {% if totalPrice is not null %}
         <div class="formPrix">
             <p>Nombre de pêcheurs : {{ numFishers }}</p>
-            <p>Date d'arrivée : {{ start }}h</p>
-            <p>Date de départ : {{ end }}h</p>
             <p>Nombre de nuits : {{ numNights }}</p>
             <p>Pellets : {{ pellets }}</p>
             <p>Graines : {{ graines }}</p>
@@ -76,6 +86,12 @@
         </div>
         <form action="{{ path('app_payment_create') }}" method="POST" class="formPrixButton">
             <input type="hidden" name="totalPrice" value="{{ totalPrice }}">
+            <input type="hidden" name="poste_id" value="{{ poste_id }}">
+            <input type="hidden" name="numFishers" value="{{ numFishers }}">
+            <input type="hidden" name="numNights" value="{{ numNights }}">
+            <input type="hidden" name="pellets" value="{{ pellets }}">
+            <input type="hidden" name="graines" value="{{ graines }}">
+            <input type="hidden" name="poste_type" value="{{ poste_type }}">
             <div>
                 <button type="submit" id="checkout-button" class="btnAction">Régler la totalité</button>
             </div>
@@ -84,6 +100,8 @@
             </div>
             <p class="textPrix">Vous allez être redirigé vers la page de paiement sécurisé</p>
         </form>
+        {% else %}
+        <p class="textPrix">Une erreur est survenue lors du calcul du montant total.</p>
     {% endif %}
 
     <hr class="hr">

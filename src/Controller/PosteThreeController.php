@@ -11,8 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Mime\Email;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Service\PricingService;
 
 #[Route('/poste/three')]
@@ -64,7 +62,7 @@ class PosteThreeController extends AbstractController
             } elseif ($duration <= 7.7) {
                 $numNights = 7;
             } else {
-                return $this->redirectToRoute('app_poste_one_error');
+                return $this->redirectToRoute('app_poste_three_error');
             }
 
             $overlappingEvents = $posteThreeRepository->findOverlappingEvents($start, $end);
@@ -72,6 +70,8 @@ class PosteThreeController extends AbstractController
             if (count($overlappingEvents) > 0) {
                 return $this->redirectToRoute('app_poste_three_error');
             } else {
+                $entityManager->persist($posteThree);
+                $entityManager->flush();
                 $numFishers = $form->get('numberOfFishers')->getData();
                 $pellets = $form->get('pellets')->getData();
                 $graines = $form->get('graines')->getData();
@@ -82,19 +82,18 @@ class PosteThreeController extends AbstractController
                         'graines' => $graines
                     ]);
                 } catch (\InvalidArgumentException $e) {
-                    // Gestion de l'erreur si les prix ne sont pas définis
-                    return $this->redirectToRoute('app_poste_one_error');
+                    return $this->redirectToRoute('app_poste_three_error');
                 }
 
                 
                 return $this->redirectToRoute('app_poste_three_prix', [
                     'totalPrice' => $totalPrice,
-                    'start' => $start->format('d-m \à H'),
-                    'end' => $end->format('d-m \à H'),
                     'numNights' => $numNights,
                     'numFishers' => $numFishers,
                     'pellets' => $pellets,
-                    'graines' => $graines
+                    'graines' => $graines,
+                    'poste_id' => $posteThree->getId(),
+                    'poste_type' => 'three',
                 ]);
             }
         }
@@ -114,8 +113,8 @@ class PosteThreeController extends AbstractController
         $numFishers = $request->query->get('numFishers');
         $pellets = $request->query->get('pellets');
         $graines = $request->query->get('graines');
-        $start = $request->query->get('start');
-        $end = $request->query->get('end');
+        $posteId = $request->query->get('poste_id');
+        $posteType = $request->query->get('poste_type');
 
         return $this->render('poste_three/prix.html.twig', [
             'totalPrice' => $totalPrice,
@@ -123,9 +122,9 @@ class PosteThreeController extends AbstractController
             'numFishers' => $numFishers,
             'pellets' => $pellets,
             'graines' => $graines,
-            'start' => $start,
-            'end' => $end,
             'stripe_public_key' => $stripePublicKey,
+            'poste_id' => $posteId,
+            'poste_type' => $posteType,
         ]);
     }
 

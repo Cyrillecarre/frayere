@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Service\PricingService;
 
@@ -71,6 +70,8 @@ class PosteFourController extends AbstractController
             if (count($overlappingEvents) > 0) {
                 return $this->redirectToRoute('app_poste_four_error');
             } else {
+                $entityManager->persist($posteFour);
+                $entityManager->flush();
                 $numFishers = $form->get('numberOfFishers')->getData();
                 $pellets = $form->get('pellets')->getData();
                 $graines = $form->get('graines')->getData();
@@ -81,19 +82,18 @@ class PosteFourController extends AbstractController
                         'graines' => $graines
                     ]);
                 } catch (\InvalidArgumentException $e) {
-                    // Gestion de l'erreur si les prix ne sont pas définis
                     return $this->redirectToRoute('app_poste_one_error');
                 }
 
                 
                 return $this->redirectToRoute('app_poste_four_prix', [
                     'totalPrice' => $totalPrice,
-                    'start' => $start->format('d-m \à H'),
-                    'end' => $end->format('d-m \à H'),
                     'numNights' => $numNights,
                     'numFishers' => $numFishers,
                     'pellets' => $pellets,
-                    'graines' => $graines
+                    'graines' => $graines,
+                    'poste_id' => $posteFour->getId(),
+                    'poste_type' => 'four',
                 ]);
             }
         }
@@ -113,8 +113,8 @@ class PosteFourController extends AbstractController
         $numFishers = $request->query->get('numFishers');
         $pellets = $request->query->get('pellets');
         $graines = $request->query->get('graines');
-        $start = $request->query->get('start');
-        $end = $request->query->get('end');
+        $posteId = $request->query->get('poste_id');
+        $posteType = $request->query->get('poste_type');
 
         return $this->render('poste_four/prix.html.twig', [
             'totalPrice' => $totalPrice,
@@ -122,9 +122,9 @@ class PosteFourController extends AbstractController
             'numFishers' => $numFishers,
             'pellets' => $pellets,
             'graines' => $graines,
-            'start' => $start,
-            'end' => $end,
             'stripe_public_key' => $stripePublicKey,
+            'poste_id' => $posteId,
+            'poste_type' => $posteType,
         ]);
     }
 

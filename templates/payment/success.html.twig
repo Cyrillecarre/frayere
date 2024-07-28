@@ -2,11 +2,22 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Paiement réussi{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/poste.css') }}">
+{% endblock %}
 
 {% block body %}
     <div class="formPrixPayment">
     <h1>Paiement réussi</h1>
-    <p>Votre paiement a été effectué avec succès. Merci pour votre réservation!</p>
-    <a href="{{ path('app_reservation') }}">Retour à la page de réservation</a>
+    <h1>Confirmation de votre réservation</h1>
+    <p>Votre réservation a été confirmée avec les détails suivants :</p>
+    <ul>
+        <li>Poste: {{ posteType }}</li>
+        <li>Pellets: {{ pellets }}</li>
+        <li>Graines: {{ graines }}</li>
+        <li>Acompte: {{ is_deposit }} EUR</li>
+        <li>Montant total: {{ totalPrice }} EUR</li>
+    </ul>
+    <p>Merci pour votre réservation.</p>
     </div>
 {% endblock %}

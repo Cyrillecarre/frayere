@@ -94,6 +94,7 @@ class PosteOneController extends AbstractController
                     'pellets' => $pellets,
                     'graines' => $graines,
                     'poste_id' => $posteOne->getId(),
+                    'poste_type' => 'one',
                 ]);
             }
         }
@@ -113,7 +114,8 @@ class PosteOneController extends AbstractController
         $numFishers = $request->query->get('numFishers');
         $pellets = $request->query->get('pellets');
         $graines = $request->query->get('graines');
-        $post = $request->query->get('poste_one');
+        $posteId = $request->query->get('poste_id');
+        $posteType = $request->query->get('poste_type');
 
 
         return $this->render('poste_one/prix.html.twig', [
@@ -123,7 +125,8 @@ class PosteOneController extends AbstractController
             'pellets' => $pellets,
             'graines' => $graines,
             'stripe_public_key' => $stripePublicKey,
-            'poste_one' => $post,
+            'poste_id' => $posteId,
+            'poste_type' => $posteType,
         ]);
     }
 
