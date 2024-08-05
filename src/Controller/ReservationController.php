@@ -17,6 +17,18 @@ class ReservationController extends AbstractController
     public function index(PosteOneRepository $posteOne, PosteTwoRepository $posteTwo, PosteThreeRepository $posteThree, PosteFourRepository $posteFour): Response
     {
 
+        $repositories = [$posteOne, $posteTwo, $posteThree, $posteFour];
+        
+        foreach ($repositories as $repository) {
+            $query = $repository->createQueryBuilder('p')
+                ->delete()
+                ->where('p.isApprouved = :isApprouved')
+                ->setParameter('isApprouved', false)
+                ->getQuery();
+                
+            $query->execute();
+        }
+
         if ($this->getUser()) {
             return $this->redirectToRoute('app_logout');    
         }

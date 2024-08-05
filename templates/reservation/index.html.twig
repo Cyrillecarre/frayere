@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% set canonical_url = 'https://la-frayere.fr/reservation' %}
+
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/home.css') }}">
 {% endblock %}
@@ -28,7 +30,7 @@
 {% block title %}Reservation{% endblock %}
 {% block body %}
 <hr class="hr">
-    <h1 class="titre">Réservation</h1>
+    <h1 class="titre">Réservation<span class="etoile">*</span></h1>
     <h3 class="titre2">48h Minimum</h3>
     <div>
       <ul class="reservation">
@@ -47,6 +49,9 @@
       <p>Réservation en attente de validation : <aside class="couleurFive"></aside></p>
     </div>
     <div class="calendar" id='calendar'>
+    </div>
+    <div class="couleurEtoile">
+        <p> * Aucun remboursement ne sera effectué en cas d'annulation à moins de 7 jours de la réservation sans motif recevable.</p>
     </div>
     <hr class="hr">
 {% endblock %}

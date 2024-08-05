@@ -19,8 +19,7 @@ use App\Entity\PosteThree;
 use App\Entity\PosteFour;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Psr\Log\LoggerInterface;
-
-
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class PaymentController extends AbstractController
 {
@@ -38,6 +37,7 @@ class PaymentController extends AbstractController
         $this->entityManager = $entityManager;
         $this->logger = $logger;
 
+
     }
 
     #[Route('/create-checkout-session', name: 'app_payment_create', methods: ['POST'])]
@@ -47,7 +47,7 @@ class PaymentController extends AbstractController
             $data = json_decode($request->getContent(), true);
             error_log(print_r($data, true));
  
-            if (!isset($data['totalPrice']) || !isset($data['isDeposit']) || !isset($data['posteId']) || !isset($data['posteType'])) {
+            if (!isset($data['totalPrice']) || !isset($data['isDeposit']) || !isset($data['posteId']) || !isset($data['posteType']) || !isset($data['start']) || !isset($data['end'])) {
                 throw new \Exception("Données requises à l'entree manquantes.");
             }
     
@@ -55,6 +55,8 @@ class PaymentController extends AbstractController
             $isDeposit = (bool) $data['isDeposit'];
             $posteId = $data['posteId'];
             $posteType = $data['posteType'];
+            $start = $data['start'];
+            $end = $data['end'];
             $pellets = $data['pellets'];
             $graines = $data['graines'];
 
@@ -88,6 +90,8 @@ class PaymentController extends AbstractController
                     'poste_type' => $posteType, 
                     'totalPrice' => $totalPrice, 
                     'is_deposit' => $amountToCharge, 
+                    'start' => $start,
+                    'end' => $end,
                     'pellets' => $pellets, 
                     'graines' => $graines
                 ], UrlGeneratorInterface::ABSOLUTE_URL),
@@ -100,6 +104,8 @@ class PaymentController extends AbstractController
                     'poste_type' => $posteType,
                     'totalPrice' => $totalPrice,
                     'is_deposit' => $amountToCharge,
+                    'start' => $start,
+                    'end' => $end,
                     'pellets' => $pellets,
                     'graines' => $graines,
                 ],
@@ -114,47 +120,61 @@ class PaymentController extends AbstractController
     }
 
     #[Route('/payment-success', name: 'app_payment_success')]
-    public function paymentSuccess(Request $request, MailerInterface $mailer, EntityManagerInterface $entityManager): Response
+    public function paymentSuccess(Request $request, MailerInterface $mailer, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
-        $posteId = $request->query->get('poste_id');
-        $posteType = $request->query->get('poste_type');
-        if (!$posteId || !$posteType) {
-            throw $this->createNotFoundException('ID ou type de poste non spécifié.');
+        $reservationDetails = $session->get('reservation_details');
+        if (!$reservationDetails) {
+            throw $this->createNotFoundException('Détails de la réservation non trouvés dans la session.');
         }
 
+        $posteTitle = $reservationDetails['poste_title'];
         $totalPrice = $request->query->get('totalPrice');
         $isDeposit = $request->query->get('is_deposit');
-        $pellets = $request->query->get('pellets');
-        $graines = $request->query->get('graines');
+        $posteType = $reservationDetails['poste_type'];
+        $start = $reservationDetails['start'];
+        $end = $reservationDetails['end'];
+        $numberOfFishers = $reservationDetails['numberOfFishers'];
+        $pellets = $reservationDetails['pellets'];
+        $graines = $reservationDetails['graines'];
+        $email = $reservationDetails['email'];
+        $phoneNumber = $reservationDetails['phoneNumber'];
 
-        $poste = null;
+        $newPoste = null;
         switch ($posteType) {
-            case 'one':
-                $poste = $entityManager->getRepository(PosteOne::class)->find($posteId);
+            case 'un':
+                $newPoste = new PosteOne();
                 break;
-            case 'two':
-                $poste = $entityManager->getRepository(PosteTwo::class)->find($posteId);
+            case 'deux':
+                $newPoste = new PosteTwo();
                 break;
-            case 'three':
-                $poste = $entityManager->getRepository(PosteThree::class)->find($posteId);
+            case 'trois':
+                $newPoste = new PosteThree();
                 break;
-            case 'four':
-                $poste = $entityManager->getRepository(PosteFour::class)->find($posteId);
+            case 'quatre':
+                $newPoste = new PosteFour();
                 break;
             default:
                 throw new \Exception('Type de poste invalide.');
         }
 
-        $poste->setApprouved(true);
-        $entityManager->persist($poste);
-        $entityManager->flush();
+
+        $newPoste->setTitle($posteTitle);
+        $newPoste->setStart($start);
+        $newPoste->setEnd($end);
+        $newPoste->setemail($email);
+        $newPoste->setPhoneNumber($phoneNumber);
+        $newPoste->setApprouved(true);
+            $this->entityManager->persist($newPoste);
+            $this->entityManager->flush();
 
         $email = (new Email())
             ->from('la.frayere@la-frayere.fr')
-            ->to('cyrille.carre@gmail.com')
+            ->to('la.frayere@la-frayere.fr')
             ->subject('Confirmation de réservation')
             ->html($this->renderView('payment/mailSuccess.html.twig', [
                 'posteType' => $posteType,
+                'start' => $start,
+                'end' => $end,
                 'totalPrice' => $totalPrice,
                 'is_deposit' => $isDeposit,
                 'pellets' => $pellets,
@@ -167,6 +187,8 @@ class PaymentController extends AbstractController
             return $this->render('payment/success.html.twig', [
                 'stripe_public_key' => $this->getParameter('stripe_public_key'),
                 'posteType' => $posteType,
+                'start' => $start,
+                'end' => $end,
                 'totalPrice' => $totalPrice,
                 'is_deposit' => $isDeposit,
                 'pellets' => $pellets,
@@ -175,69 +197,16 @@ class PaymentController extends AbstractController
     }
 
     #[Route('/payment-cancel', name: 'app_payment_cancel')]
-    public function paymentCancel(EntityManagerInterface $entityManager, Request $request, MailerInterface $mailer): Response
+    public function paymentCancel(EntityManagerInterface $entityManager, Request $request, SessionInterface $session): Response
     {
 
-        $posteId = $request->query->get('poste_id');
-        $posteType = $request->query->get('poste_type');
-        if (!$posteId || !$posteType) {
-            throw $this->createNotFoundException('ID ou type de poste non spécifié.');
+        $reservationDetails = $session->get('reservation_details');
+        if (!$reservationDetails) {
+            throw $this->createNotFoundException('Détails de la réservation non trouvés dans la session.');
         }
-
-        $this->logger->info('ID et type du poste:', ['poste_id' => $posteId, 'poste_type' => $posteType]);
-
-
-        $totalPrice = $request->query->get('totalPrice');
-        $isDeposit = $request->query->get('isDeposit');
-        $numNights = $request->query->get('numNights');
-        $numFishers = $request->query->get('numFishers');
-        $pellets = $request->query->get('pellets');
-        $graines = $request->query->get('graines');
-
-        $poste = null;
-        switch ($posteType) {
-            case 'one':
-                $poste = $entityManager->getRepository(PosteOne::class)->find($posteId);
-                break;
-            case 'two':
-                $poste = $entityManager->getRepository(PosteTwo::class)->find($posteId);
-                break;
-            case 'three':
-                $poste = $entityManager->getRepository(PosteThree::class)->find($posteId);
-                break;
-            case 'four':
-                $poste = $entityManager->getRepository(PosteFour::class)->find($posteId);
-                break;
-            default:
-                $this->logger->error('Type de poste invalide.', ['poste_type' => $posteType]);
-                throw new \Exception('Type de poste invalide.');
-        }
-
-        if ($poste) {
-            $this->logger->info('Poste trouvé:', ['poste' => $poste]);
-        } else {
-            $this->logger->error('Poste non trouvé pour l\'ID:', ['poste_id' => $posteId]);
-            throw $this->createNotFoundException('Le poste spécifié n\'existe pas.');
-        }
-
-        if ($poste) {
-            $this->logger->info('Poste trouvé:', ['poste' => $poste]);
-        } else {
-            throw $this->createNotFoundException('Le poste spécifié n\'existe pas.');
-        }
-
-        $entityManager->remove($poste);
-        $entityManager->flush();
 
         return $this->render('payment/cancel.html.twig', [
             'stripe_public_key' => $this->getParameter('stripe_public_key'),
-            'posteName' => $poste->getTitle(),
-            'totalPrice' => $totalPrice,
-            'isDeposit' => $isDeposit,
-            'numNights' => $numNights,
-            'numFishers' => $numFishers,
-            'pellets' => $pellets,
-            'graines' => $graines,
         ]);
     }
 }

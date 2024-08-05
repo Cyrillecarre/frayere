@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Service\PricingService;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 #[Route('/poste/three')]
 class PosteThreeController extends AbstractController
@@ -32,7 +33,7 @@ class PosteThreeController extends AbstractController
     }
 
     #[Route('/new', name: 'app_poste_three_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer, PosteThreeRepository $posteThreeRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer, PosteThreeRepository $posteThreeRepository, SessionInterface $session): Response
     {
         $posteThree = new PosteThree();
         $form = $this->createForm(PosteThreeType::class, $posteThree);
@@ -85,6 +86,18 @@ class PosteThreeController extends AbstractController
                     return $this->redirectToRoute('app_poste_three_error');
                 }
 
+                $session->set('reservation_details', [
+                    'posteId' => $posteThree->getId(),
+                    'poste_title' => 'Poste 3',
+                    'poste_type' => 'trois',
+                    'start' => $posteThree->getStart(),
+                    'end' => $posteThree->getEnd(),
+                    'numberOfFishers' => $form->get('numberOfFishers')->getData(),
+                    'pellets' => $form->get('pellets')->getData(),
+                    'graines' => $form->get('graines')->getData(),
+                    'email' => $form->get('email')->getData(),
+                    'phoneNumber' => $form->get('phoneNumber')->getData(),
+                ]);
                 
                 return $this->redirectToRoute('app_poste_three_prix', [
                     'totalPrice' => $totalPrice,
@@ -93,7 +106,9 @@ class PosteThreeController extends AbstractController
                     'pellets' => $pellets,
                     'graines' => $graines,
                     'poste_id' => $posteThree->getId(),
-                    'poste_type' => 'three',
+                    'poste_type' => 'trois',
+                    'start' => $start->format('d-m'),
+                    'end' => $end->format('d-m'),
                 ]);
             }
         }
@@ -115,6 +130,8 @@ class PosteThreeController extends AbstractController
         $graines = $request->query->get('graines');
         $posteId = $request->query->get('poste_id');
         $posteType = $request->query->get('poste_type');
+        $start = $request->query->get('start');
+        $end = $request->query->get('end');
 
         return $this->render('poste_three/prix.html.twig', [
             'totalPrice' => $totalPrice,
@@ -125,6 +142,8 @@ class PosteThreeController extends AbstractController
             'stripe_public_key' => $stripePublicKey,
             'poste_id' => $posteId,
             'poste_type' => $posteType,
+            'start' => $start,
+            'end' => $end,
         ]);
     }
 

@@ -43,27 +43,17 @@ class PosteOneType extends AbstractType
                 'mapped' => false,
             ])
             ->add('pellets', ChoiceType::class, [
-                'label' => 'Nombre de sac de pellets',
+                'label' => 'Nombre de sac de pellets (rupture)',
                 'choices' => [
                     '0' => 0,
-                    '1' => 1,
-                    '2' => 2,
-                    '3' => 3,
-                    '4' => 4,
-                    '5' => 5,
                 ],
                 'data' => 0,
                 'mapped' => false,
             ])
             ->add('graines', ChoiceType::class, [
-                'label' => 'Nombre de sac de graines',
+                'label' => 'Nombre de sac de graines (rupture)',
                 'choices' => [
                     '0' => 0,
-                    '1' => 1,
-                    '2' => 2,
-                    '3' => 3,
-                    '4' => 4,
-                    '5' => 5,
                 ],
                 'data' => 0,
                 'mapped' => false,

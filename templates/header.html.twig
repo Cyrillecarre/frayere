@@ -18,8 +18,10 @@
     <meta property="og:image:width" content="100%">
     <meta property="og:image:height" content="100%">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ canonical_url|default('https://la-frayere.fr') }}">
     <meta property="og:url" content="https://la-frayere.fr">
     <meta property="og:title" content="La Frayère - Etang de pêche de la carpe">
+    <link rel="canonical" href="{{ canonical_url|default('https://la-frayere.fr') }}">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('styles/header.css') }}">
     <script src="https://kit.fontawesome.com/6db39e2efc.js" crossorigin="anonymous"></script>

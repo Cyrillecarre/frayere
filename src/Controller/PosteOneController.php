@@ -10,9 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Service\PricingService;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 #[Route('/poste/one')]
 class PosteOneController extends AbstractController
@@ -27,13 +27,14 @@ class PosteOneController extends AbstractController
 
     private $pricingService;
 
+
     public function __construct(PricingService $pricingService)
     {
         $this->pricingService = $pricingService;
     }
 
     #[Route('/new', name: 'app_poste_one_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer, PosteOneRepository $posteOneRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, PosteOneRepository $posteOneRepository, SessionInterface $session): Response
     {
         $posteOne = new PosteOne();
         $form = $this->createForm(PosteOneType::class, $posteOne);
@@ -86,6 +87,18 @@ class PosteOneController extends AbstractController
                     return $this->redirectToRoute('app_poste_one_error');
                 }
 
+                $session->set('reservation_details', [
+                    'posteId' => $posteOne->getId(),
+                    'poste_title' => 'Poste 1',
+                    'poste_type' => 'un',
+                    'start' => $posteOne->getStart(),
+                    'end' => $posteOne->getEnd(),
+                    'numberOfFishers' => $form->get('numberOfFishers')->getData(),
+                    'pellets' => $form->get('pellets')->getData(),
+                    'graines' => $form->get('graines')->getData(),
+                    'email' => $form->get('email')->getData(),
+                    'phoneNumber' => $form->get('phoneNumber')->getData(),
+                ]);
                 
                 return $this->redirectToRoute('app_poste_one_prix', [
                     'totalPrice' => $totalPrice,
@@ -94,7 +107,10 @@ class PosteOneController extends AbstractController
                     'pellets' => $pellets,
                     'graines' => $graines,
                     'poste_id' => $posteOne->getId(),
-                    'poste_type' => 'one',
+                    'poste_type' => 'un',
+                    'start' => $start->format('d-m'),
+                    'end' => $end->format('d-m'),
+
                 ]);
             }
         }
@@ -116,6 +132,8 @@ class PosteOneController extends AbstractController
         $graines = $request->query->get('graines');
         $posteId = $request->query->get('poste_id');
         $posteType = $request->query->get('poste_type');
+        $start = $request->query->get('start');
+        $end = $request->query->get('end');
 
 
         return $this->render('poste_one/prix.html.twig', [
@@ -127,6 +145,8 @@ class PosteOneController extends AbstractController
             'stripe_public_key' => $stripePublicKey,
             'poste_id' => $posteId,
             'poste_type' => $posteType,
+            'start' => $start,
+            'end' => $end,
         ]);
     }
 
@@ -181,5 +201,6 @@ class PosteOneController extends AbstractController
 
         return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
     }
+
 }
 

@@ -11,9 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Mime\Email;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Service\PricingService;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 #[Route('/poste/two')]
 class PosteTwoController extends AbstractController
@@ -34,7 +34,7 @@ class PosteTwoController extends AbstractController
     }
 
     #[Route('/new', name: 'app_poste_two_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer, PosteTwoRepository $posteTwoRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer, PosteTwoRepository $posteTwoRepository, SessionInterface $session): Response
     {
         $posteTwo = new PosteTwo();
         $form = $this->createForm(PosteTwoType::class, $posteTwo);
@@ -84,10 +84,21 @@ class PosteTwoController extends AbstractController
                         'graines' => $graines
                     ]);
                 } catch (\InvalidArgumentException $e) {
-                    // Gestion de l'erreur si les prix ne sont pas définis
                     return $this->redirectToRoute('app_poste_two_error');
                 }
 
+                $session->set('reservation_details', [
+                    'posteId' => $posteTwo->getId(),
+                    'poste_title' => 'Poste 2',
+                    'poste_type' => 'deux',
+                    'start' => $posteTwo->getStart(),
+                    'end' => $posteTwo->getEnd(),
+                    'numberOfFishers' => $form->get('numberOfFishers')->getData(),
+                    'pellets' => $form->get('pellets')->getData(),
+                    'graines' => $form->get('graines')->getData(),
+                    'email' => $form->get('email')->getData(),
+                    'phoneNumber' => $form->get('phoneNumber')->getData(),
+                ]);
                 
                 return $this->redirectToRoute('app_poste_two_prix', [
                     'totalPrice' => $totalPrice,
@@ -96,7 +107,9 @@ class PosteTwoController extends AbstractController
                     'pellets' => $pellets,
                     'graines' => $graines,
                     'poste_id' => $posteTwo->getId(),
-                    'poste_type' => 'two',
+                    'poste_type' => 'deux',
+                    'start' => $start->format('d-m'),
+                    'end' => $end->format('d-m'),
                 ]);
             }
         }
@@ -118,6 +131,8 @@ class PosteTwoController extends AbstractController
         $graines = $request->query->get('graines');
         $posteId = $request->query->get('poste_id');
         $posteType = $request->query->get('poste_type');
+        $start = $request->query->get('start');
+        $end = $request->query->get('end');
 
         return $this->render('poste_two/prix.html.twig', [
             'totalPrice' => $totalPrice,
@@ -128,6 +143,8 @@ class PosteTwoController extends AbstractController
             'stripe_public_key' => $stripePublicKey,
             'poste_id' => $posteId,
             'poste_type' => $posteType,
+            'start' => $start,
+            'end' => $end,
         ]);
     }
 
@@ -182,4 +199,17 @@ class PosteTwoController extends AbstractController
 
         return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
     }
+
+#[Route('/poste/{id}/cancel', name: 'app_poste_one_cancel', methods: ['DELETE'])]
+public function cancel(int $id, EntityManagerInterface $entityManager, PosteTwoRepository $posteTwoRepository): Response
+{
+    $posteTwo = $posteTwoRepository->find($id);
+
+    if ($posteTwo !== null) {
+        $entityManager->remove($posteTwo);
+        $entityManager->flush();
+    }
+
+    return new JsonResponse(['status' => 'cancelled'], Response::HTTP_OK);
+}
 }

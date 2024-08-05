@@ -33,6 +33,8 @@
                 var pellets = document.querySelector('input[name="pellets"]').value;
                 var graines = document.querySelector('input[name="graines"]').value;
                 var posteType = document.querySelector('input[name="poste_type"]').value;
+                var start = document.querySelector('input[name="start"]').value;
+                var end = document.querySelector('input[name="end"]').value;
 
                 fetch("{{ path('app_payment_create') }}", {
                     method: 'POST',
@@ -48,7 +50,9 @@
                         numNights: numNights,
                         pellets: pellets,
                         graines: graines,
-                        posteType: posteType
+                        posteType: posteType,
+                        start: start,
+                        end: end
                     })
                 })
                 .then(response => response.json())
@@ -78,6 +82,8 @@
 
     {% if totalPrice is not null %}
         <div class="formPrix">
+            <p>Date d'arrivée : {{ start }}</p>
+            <p>Date de départ : {{ end }}</p>
             <p>Nombre de pêcheurs : {{ numFishers }}</p>
             <p>Nombre de nuits : {{ numNights }}</p>
             <p>Pellets : {{ pellets }}</p>
@@ -92,6 +98,8 @@
             <input type="hidden" name="pellets" value="{{ pellets }}">
             <input type="hidden" name="graines" value="{{ graines }}">
             <input type="hidden" name="poste_type" value="{{ poste_type }}">
+            <input type="hidden" name="start" value="{{ start }}">
+            <input type="hidden" name="end" value="{{ end }}">
             <div>
                 <button type="submit" id="checkout-button" class="btnAction">Régler la totalité</button>
             </div>
